@@ -33,7 +33,7 @@ print <<EOF;
 <script class="preferences" type="text/plain">
 $prefs</script>
 <style class="text/css">
-#puzzle > div.softkey, #gamemenu {
+.prod #puzzle > div.softkey, .prod #gamemenu {
     display: none !important;
 }
 
@@ -311,7 +311,7 @@ function js_get_starting_seed() {
 };
 </script>
 </head>
-<body>
+<body class="prod">
 <div id="puzzle">
   <div id="puzzlecanvascontain">
     <canvas id="puzzlecanvas" width="1px" height="1px" tabindex="0">
@@ -325,14 +325,12 @@ function js_get_starting_seed() {
 </div>
 <form id="gamemenu" class="transient">
  <ul>
-<!--
   <li><div tabindex="0">Game<ul class="transient">
     <li><button type="button" id="specific">Enter game ID...</button></li>
     <li><button type="button" id="random">Enter random seed...</button></li>
     <li><button type="button" id="save">Download save file...</button></li>
     <li><button type="button" id="load">Upload save file...</button></li>
   </ul></div></li>
--->
   <li><div tabindex="0">Type<ul id="gametype" class="transient"></ul></div></li>
   <li role="separator"></li>
   <li><button type="button" id="new">

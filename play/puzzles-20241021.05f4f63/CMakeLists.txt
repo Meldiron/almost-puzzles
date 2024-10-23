@@ -273,6 +273,7 @@ guiprogram(grapheditor untangle.c
 
 add_subdirectory(unfinished)
 add_subdirectory(auxiliary)
+add_subdirectory(puzzles-unreleased)
 
 if(build_cli_programs)
   write_generated_games_header()

@@ -1152,8 +1152,36 @@ int main(int argc, char **argv)
         js_error_box(param_err);
 
 
-    char* customSeed = emscripten_run_script_string("js_get_starting_seed()");
-    cfg->u.string.sval = customSeed;
+    char* customData = emscripten_run_script_string("js_get_starting_seed()");
+
+    char* customConfig;
+    char* customSeed;
+
+    char *token;
+    int tokenI;
+    
+    tokenI = 0;
+    token = strtok(customData, "#");
+    while( token != NULL ) {
+        if(tokenI == 0) {
+            customConfig = token;
+        } else if(tokenI == 1) {
+            customSeed = token;
+        }
+        tokenI++;
+        token = strtok(NULL, "#");
+    }
+
+    token = strtok(customConfig, ",");
+    tokenI = 0;
+    while( token != NULL ) {
+        cfg[tokenI].u.string.sval = dupstr(token);
+        tokenI++;
+        token = strtok(NULL, ",");
+    }
+
+    // TODO: Apply seed
+    // TODO: What about cfg[2].u.boolean.bval; u.choices.selected; 
 
     const char *err = midend_set_config(me, cfg_which, cfg);
     if (err)
