@@ -1707,45 +1707,45 @@ static float *game_colours(frontend *fe, int *ncolours)
      */
     game_mkhighlight(fe, ret, COL_BACKGROUND, -1, COL_SYSBACKGROUND);
 
-    ret[COL_LINE * 3 + 0] = 0.0F;
-    ret[COL_LINE * 3 + 1] = 0.0F;
-    ret[COL_LINE * 3 + 2] = 0.0F;
+    ret[COL_LINE * 3 + 0] = 0.7803921568627451F;
+    ret[COL_LINE * 3 + 1] = 0.792156862745098F;
+    ret[COL_LINE * 3 + 2] = 0.8745098039215686F;
 
-    ret[COL_BACKGROUND * 3 + 0] = 0,15686F;
-    ret[COL_BACKGROUND * 3 + 1] = 0,16470F;
-    ret[COL_BACKGROUND * 3 + 2] = 0,21176F;
+    ret[COL_BACKGROUND * 3 + 0] = 0.21568627450980393F;
+    ret[COL_BACKGROUND * 3 + 1] = 0.22745098039215686F;
+    ret[COL_BACKGROUND * 3 + 2] = 0.30196078431372547F;
 
     ret[COL_CROSSEDLINE * 3 + 0] = 1.0F;
-    ret[COL_CROSSEDLINE * 3 + 1] = 0.0F;
-    ret[COL_CROSSEDLINE * 3 + 2] = 0.0F;
+    ret[COL_CROSSEDLINE * 3 + 1] = 0.3333333333333333F;
+    ret[COL_CROSSEDLINE * 3 + 2] = 0.3333333333333333F;
 
-    ret[COL_OUTLINE * 3 + 0] = 0.0F;
-    ret[COL_OUTLINE * 3 + 1] = 0.0F;
-    ret[COL_OUTLINE * 3 + 2] = 0.0F;
+    ret[COL_OUTLINE * 3 + 0] = 0.4470588235294118F;
+    ret[COL_OUTLINE * 3 + 1] = 0.47843137254901963F;
+    ret[COL_OUTLINE * 3 + 2] = 0.6588235294117647F;
 
-    ret[COL_POINT * 3 + 0] = 0.0F;
-    ret[COL_POINT * 3 + 1] = 0.0F;
-    ret[COL_POINT * 3 + 2] = 1.0F;
+    ret[COL_POINT * 3 + 0] = 0.9725490196078431F;
+    ret[COL_POINT * 3 + 1] = 0.9725490196078431F;
+    ret[COL_POINT * 3 + 2] = 0.9490196078431372F;
 
-    ret[COL_DRAGPOINT * 3 + 0] = 1.0F;
-    ret[COL_DRAGPOINT * 3 + 1] = 1.0F;
-    ret[COL_DRAGPOINT * 3 + 2] = 1.0F;
+    ret[COL_DRAGPOINT * 3 + 0] = 0.3137254901960784F;
+    ret[COL_DRAGPOINT * 3 + 1] = 0.9803921568627451F;
+    ret[COL_DRAGPOINT * 3 + 2] = 0.4823529411764706F;
 
     ret[COL_CURSORPOINT * 3 + 0] = 0.5F;
     ret[COL_CURSORPOINT * 3 + 1] = 0.5F;
     ret[COL_CURSORPOINT * 3 + 2] = 0.5F;
 
     ret[COL_NEIGHBOUR * 3 + 0] = 1.0F;
-    ret[COL_NEIGHBOUR * 3 + 1] = 0.0F;
-    ret[COL_NEIGHBOUR * 3 + 2] = 0.0F;
+    ret[COL_NEIGHBOUR * 3 + 1] = 0.3333333333333333F;
+    ret[COL_NEIGHBOUR * 3 + 2] = 0.3333333333333333F;
 
-    ret[COL_FLASH1 * 3 + 0] = 0.5F;
-    ret[COL_FLASH1 * 3 + 1] = 0.5F;
-    ret[COL_FLASH1 * 3 + 2] = 0.5F;
+    ret[COL_FLASH1 * 3 + 0] = 0.3F;
+    ret[COL_FLASH1 * 3 + 1] = 0.3F;
+    ret[COL_FLASH1 * 3 + 2] = 0.3F;
 
-    ret[COL_FLASH2 * 3 + 0] = 1.0F;
-    ret[COL_FLASH2 * 3 + 1] = 1.0F;
-    ret[COL_FLASH2 * 3 + 2] = 1.0F;
+    ret[COL_FLASH2 * 3 + 0] = 0.0F;
+    ret[COL_FLASH2 * 3 + 1] = 0.0F;
+    ret[COL_FLASH2 * 3 + 2] = 0.0F;
 
     *ncolours = NCOLOURS;
     return ret;

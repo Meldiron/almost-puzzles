@@ -36,6 +36,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
+#include <emscripten.h>
 
 #include "puzzles.h"
 
@@ -1141,6 +1142,21 @@ int main(int argc, char **argv)
      */
     if (param_err)
         js_error_box(param_err);
+
+
+    char* customSeed = emscripten_run_script_string("js_get_starting_seed()");
+    cfg->u.string.sval = customSeed;
+
+    const char *err = midend_set_config(me, cfg_which, cfg);
+    if (err)
+        js_error_box(err);
+
+    select_appropriate_preset();
+    midend_new_game(me);
+    resize();
+    midend_redraw(me);
+    free_cfg(cfg);
+    js_dialog_cleanup();
 
     /*
      * Reveal the puzzle!

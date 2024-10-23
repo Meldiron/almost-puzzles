@@ -21,9 +21,9 @@ print <<EOF;
 <meta name="theme-color" content="rgb(50,50,50)" />    
 <title>${displayname}</title>
 <!-- The KaiAds scripts are only present in Kai Store versions. -->
-<script src="kaiads.v5.min.js"></script>
+<!-- <script src="kaiads.v5.min.js"></script>  -->
 <script defer type="text/javascript" src="${name}.js"></script>
-<script defer type="text/javascript" src="kaiads-glue.js"></script>
+<!-- <script defer type="text/javascript" src="kaiads-glue.js"></script>  -->
 <!-- Override some defaults for small screens -->
 <script id="environment" type="application/json">
 { "PATTERN_DEFAULT": "10x10",
@@ -43,7 +43,7 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    bottom: 30px;
+    bottom: 0;
     font-family: "Open Sans", sans-serif;
     font-size: 17px;
 }
@@ -178,7 +178,7 @@ body {
 }
 
 #puzzle {
-    background: var(--puzzle-background, #e6e6e6);
+    background: #282a36;
     flex: 1 1 auto;
     flex-direction: column;
     align-items: center;
@@ -303,6 +303,13 @@ body {
 }
 
 </style>
+<script>
+function js_get_starting_seed() {
+    const url = new URL(window.location.href);
+    const seed = url.searchParams.get('seed');
+    return seed.split(";").join("#");
+};
+</script>
 </head>
 <body>
 <div id="puzzle">
