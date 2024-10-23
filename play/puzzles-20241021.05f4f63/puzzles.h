@@ -364,6 +364,7 @@ void midend_save_prefs(midend *me,
 const char *identify_game(char **name,
                           bool (*read)(void *ctx, void *buf, int len),
                           void *rctx);
+void midend_finish_changes(midend *me, void (*notify)());
 void midend_request_id_changes(midend *me, void (*notify)(void *), void *ctx);
 bool midend_get_cursor_location(midend *me, int *x, int *y, int *w, int *h);
 

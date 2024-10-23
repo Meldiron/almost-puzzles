@@ -43,6 +43,7 @@
 /*
  * Extern references to Javascript functions provided in emcclib.js.
  */
+extern void js_finish_changes(void);
 extern void js_init_puzzle(void);
 extern void js_post_init(void);
 extern void js_debug(const char *);
@@ -450,6 +451,11 @@ static void update_permalinks(void)
 static void ids_changed(void *ignored)
 {
     update_permalinks();
+}
+
+static void finish_changes()
+{
+    js_finish_changes();
 }
 
 /* ----------------------------------------------------------------------
@@ -1125,6 +1131,8 @@ int main(int argc, char **argv)
      * description), so that we can proactively update the permalink.
      */
     midend_request_id_changes(me, ids_changed, NULL);
+
+    midend_finish_changes(me, finish_changes);
 
     /*
      * Draw the puzzle's initial state, and set up the permalinks and

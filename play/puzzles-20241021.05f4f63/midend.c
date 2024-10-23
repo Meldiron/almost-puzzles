@@ -102,6 +102,8 @@ struct midend {
     void (*game_id_change_notify_function)(void *);
     void *game_id_change_notify_ctx;
 
+    void (*finish_notify_function)();
+
     bool one_key_shortcuts;
 };
 
@@ -194,6 +196,7 @@ midend *midend_new(frontend *fe, const game *ourgame,
     me->params = ourgame->default_params();
     me->game_id_change_notify_function = NULL;
     me->game_id_change_notify_ctx = NULL;
+    me->finish_notify_function = NULL;
     me->encoded_presets = NULL;
     me->n_encoded_presets = 0;
 
@@ -919,6 +922,12 @@ static void midend_finish_move(midend *me)
 	}
     }
 
+    if (me->ourgame->status(me->states[me->statepos-1].state) == 1) {
+        if (me->finish_notify_function) {
+            me->finish_notify_function();
+        }
+    }
+    
     if (me->oldstate)
 	me->ourgame->free_game(me->oldstate);
     me->oldstate = NULL;
@@ -1655,6 +1664,11 @@ void midend_request_id_changes(midend *me, void (*notify)(void *), void *ctx)
 {
     me->game_id_change_notify_function = notify;
     me->game_id_change_notify_ctx = ctx;
+}
+
+void midend_finish_changes(midend *me, void (*notify)(void *))
+{
+    me->finish_notify_function = notify;
 }
 
 bool midend_get_cursor_location(midend *me,

@@ -17,6 +17,17 @@
 
 mergeInto(LibraryManager.library, {
     /*
+     * void js_finish_changes(void);
+     *
+     * Called with puzzle is sloved.
+     */
+    js_finish_changes: function() {
+        var myCustomData = { status: '1' };
+        var event = new CustomEvent('game_status', { detail: myCustomData });
+        window.parent.document.dispatchEvent(event);
+    },
+
+    /*
      * void js_init_puzzle(void);
      *
      * Called at the start of main() to set up event handlers.
