@@ -33,7 +33,7 @@ print <<EOF;
 <script class="preferences" type="text/plain">
 $prefs</script>
 <style class="text/css">
-.prod #puzzle > div.softkey, .prod #gamemenu {
+.prod #puzzle > div.softkey, .prod #gamemenu, .prod #statusbar {
     display: none !important;
 }
 
@@ -303,13 +303,6 @@ body {
 }
 
 </style>
-<script>
-function js_get_starting_seed() {
-    const url = new URL(window.location.href);
-    const seed = url.searchParams.get('seed');
-    return seed.split(";").join("#");
-};
-</script>
 </head>
 <body class="prod">
 <div id="puzzle">
@@ -348,11 +341,17 @@ function js_get_starting_seed() {
   <li><button type="button" id="solve">
     Solve<span class="verbiage"> game</span>
     </button></li>
-  <li><a target="_blank" href="help/en/${name}.html#${name}">
+  <li><a target="_blank" href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/doc/${name}.html#${name}">
     Instructions
   </a></li>
-  <li><a target="_blank" href="help/en/index.html">
+  <li><a target="_blank" href="https://www.chiark.greenend.org.uk/~sgtatham/puzzles/doc/index.html">
     Full manual
+  </a></li>
+  <li><a id="permalink-desc">
+    Apply game ID
+  </a></li>
+  <li><a id="permalink-seed">
+    Apply game seed
   </a></li>
  </ul>
  <div class="softkey">
@@ -360,6 +359,17 @@ function js_get_starting_seed() {
    <div class="rsk">Dismiss</div>
  </div>
 </form>
+
+<script>
+(function() {
+    const url = new URL(window.location.href);
+    const dev = url.searchParams.get('dev');
+    if(dev) {
+        document.body.classList.remove('prod');
+    }
+})();
+</script>
+
 </body>
 </html>
 EOF
