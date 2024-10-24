@@ -18,3 +18,5 @@ rm -rf build/CmakeCache.txt
 rm -rf build/*.webapp
 rm -rf build/*.a     
 rm -rf build/*.cmake
+
+mv gamelist.txt 404.html
