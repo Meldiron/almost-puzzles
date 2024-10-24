@@ -105,7 +105,7 @@
 										class="group"
 										href={`/games/${data.gameId}/${data.mode}/${data.year}/${month}-${day}`}
 									>
-										{#if data.finishes.includes(`${month}-${day}`)}
+										{#if data.finishes.levels.includes(`${month}-${day}`)}
 											<div
 												class={`group-hover:border-neutral-300 group-hover:border-l group-hover:border-t w-full flex flex-col items-center justify-center aspect-square border border-neutral-800 ${month === 1 ? '' : 'border-l-0'} ${day === 1 ? '' : 'border-t-0'} bg-green-500`}
 											></div>
