@@ -6,12 +6,12 @@ You have a square grid; each square may contain a digit from 1 to the size of th
 
 The following clues can appear:
 
-* An 'E' indicates that the four adjacent digits are even.
-* An 'O' indicates that the four adjacent digits are odd.
-* An '=' indicates that diagonally adjacent digits are equal.
-* A number indicates the result of the given operation when applied to each pair of diagonally adjacent digits. (topleft * bottomright) = (topright * bottomleft)
+- An 'E' indicates that the four adjacent digits are even.
+- An 'O' indicates that the four adjacent digits are odd.
+- An '=' indicates that diagonally adjacent digits are equal.
+- A number indicates the result of the given operation when applied to each pair of diagonally adjacent digits. (topleft _ bottomright) = (topright _ bottomleft)
 
-The inventor of Mathrax is unknown. 
+The inventor of Mathrax is unknown.
 
 More information: https://www.janko.at/Raetsel/Mathrax/index.htm
 
@@ -29,7 +29,7 @@ Press the 'M' key to fill every empty cell with all possible pencil marks.
 
 ## Mathrax parameters
 
-These parameters are available from the ‘Custom…’ option on the ‘Type’ menu. 
+These parameters are available from the ‘Custom…’ option on the ‘Type’ menu.
 
 <dl>
 	<dt>Size (s*s)</dt>

@@ -8,7 +8,7 @@ The puzzle can be played on a rectangular or hexagonal grid. It's also possible 
 
 In the alternate game mode 'Edges', the grid is surrounded by numbers placed inside arrows. An arrow points to the row, column or diagonal where this number appears in the path.
 
-This puzzle is invented by Gyora Benedek, and is known as *Hidato* (or the non-trademarked name *Hidoku*). Edges mode is an implementation of *1to25* invented by Jeff Widderich.
+This puzzle is invented by Gyora Benedek, and is known as _Hidato_ (or the non-trademarked name _Hidoku_). Edges mode is an implementation of _1to25_ invented by Jeff Widderich.
 
 More information: http://www.janko.at/Raetsel/Hidoku/index.htm
 
@@ -30,7 +30,7 @@ If a path has only a single number, the endpoints will display one or two smalle
 
 ## Ascent parameters
 
-These parameters are available from the ‘Custom…’ option on the ‘Type’ menu. 
+These parameters are available from the ‘Custom…’ option on the ‘Type’ menu.
 
 <dl>
 	<dt>Width, Height</dt>

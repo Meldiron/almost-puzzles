@@ -6,8 +6,8 @@ You have a square grid; each square may contain a character from A (or 1) to a g
 
 The rules vary depending on the game mode:
 
-* ABC End View mode: Letters on the edge show which letter appears first when 'looking' into the grid.
-* Number Ball mode: Squares with a ball must contain a number. Squares with a cross must remain empty.
+- ABC End View mode: Letters on the edge show which letter appears first when 'looking' into the grid.
+- Number Ball mode: Squares with a ball must contain a number. Squares with a cross must remain empty.
 
 Number Ball was invented by Inaba Naoki. The original puzzles are available here: http://www.janko.at/Raetsel/Nanbaboru/index.htm
 
@@ -29,7 +29,7 @@ Press the 'M' key to fill every empty cell with all possible pencil marks.
 
 ## Salad parameters
 
-These parameters are available from the ‘Custom…’ option on the ‘Type’ menu. 
+These parameters are available from the ‘Custom…’ option on the ‘Type’ menu.
 
 <dl>
 	<dt>Game mode</dt>

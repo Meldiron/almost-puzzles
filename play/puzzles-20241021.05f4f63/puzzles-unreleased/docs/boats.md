@@ -10,7 +10,7 @@ Some boat segments are given (corner pieces, centers, or single-length boats), a
 
 At the bottom of the puzzle is a list of every boat that must be placed in the grid. When a boat is found, it is automatically crossed off of this list. Make sure a boat is surrounded by water on all sides, to indicate that it cannot possibly grow any further.
 
-This puzzle is best known as *Battleships*.
+This puzzle is best known as _Battleships_.
 
 More information: https://www.janko.at/Raetsel/Battleships/index.htm
 
@@ -24,7 +24,7 @@ To play with a keyboard, use the arrow keys to move the cursor. Press Enter to p
 
 ## Boats parameters
 
-These parameters are available from the ‘Custom…’ option on the ‘Type’ menu. 
+These parameters are available from the ‘Custom…’ option on the ‘Type’ menu.
 
 <dl>
 	<dt>Width, Height</dt>

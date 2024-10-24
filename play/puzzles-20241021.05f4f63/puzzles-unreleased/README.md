@@ -1,5 +1,4 @@
-puzzles-unreleased
-==================
+# puzzles-unreleased
 
 This repo contains several unfinished contributions for [Simon Tatham's Portable Puzzle Collection](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/) I've written over the years.
 
@@ -52,19 +51,21 @@ Click on a puzzle to read a detailed description.
 
 ### Abandoned puzzles
 
-* [Seismic](https://github.com/x-sheep/puzzles-unreleased/blob/master/docs/seismic.md): Place numbers in each area, keeping enough distance between equal numbers.
-* [Crossing](https://github.com/x-sheep/puzzles-unreleased/blob/master/docs/crossing.md): Place each number from the list into the crossword.
+- [Seismic](https://github.com/x-sheep/puzzles-unreleased/blob/master/docs/seismic.md): Place numbers in each area, keeping enough distance between equal numbers.
+- [Crossing](https://github.com/x-sheep/puzzles-unreleased/blob/master/docs/crossing.md): Place each number from the list into the crossword.
 
 ## Building with CMake
 
-* Get the source code for the SGT Portable Puzzle Collection from [the official site](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/).
-* Copy this folder into the above source folder as a subdirectory. Alternatively, add this repository as a submodule of the main repository.
-* In the main repository's `CMakeLists.txt`, go to the line with `add_subdirectory(unfinished)` and add the following line below it:
+- Get the source code for the SGT Portable Puzzle Collection from [the official site](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/).
+- Copy this folder into the above source folder as a subdirectory. Alternatively, add this repository as a submodule of the main repository.
+- In the main repository's `CMakeLists.txt`, go to the line with `add_subdirectory(unfinished)` and add the following line below it:
+
 ```cmake
 add_subdirectory(puzzles-unreleased) # or whatever this folder is called
 ```
-* Run CMake in the main folder.
-* Optional: To add icons on Unix, copy all save files from the `savefiles` subfolder to the `icons` folder in the main repository. 
+
+- Run CMake in the main folder.
+- Optional: To add icons on Unix, copy all save files from the `savefiles` subfolder to the `icons` folder in the main repository.
 
 ---
 

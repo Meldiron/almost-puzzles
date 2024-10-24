@@ -7,7 +7,7 @@ You're given a grid that has been divided into areas, containing arrows and one 
 1. Every outlined area contains different arrows.
 2. Following the arrows must lead to one of the circled goals.
 
-This type was invented by [Nikoli](https://www.nikoli.co.jp/), who name it *Roma*.
+This type was invented by [Nikoli](https://www.nikoli.co.jp/), who name it _Roma_.
 
 More information: http://www.janko.at/Raetsel/Nikoli/Roma.htm
 
@@ -21,7 +21,7 @@ The keyboard can also be used. Move the cursor with the arrow keys, and press En
 
 ## Rome parameters
 
-These parameters are available from the ‘Custom…’ option on the ‘Type’ menu. 
+These parameters are available from the ‘Custom…’ option on the ‘Type’ menu.
 
 <dl>
 	<dt>Width, Height</dt>

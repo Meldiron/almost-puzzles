@@ -6,8 +6,8 @@ The puzzle collection is built using CMake <https://cmake.org/>. To
 compile in the simplest way (on any of Linux, Windows or Mac), run
 these commands in the source directory:
 
-  cmake .
-  cmake --build .
+cmake .
+cmake --build .
 
 The manual is provided in Windows Help format for the Windows build;
 in text format for anyone who needs it; and in HTML for the Mac OS X

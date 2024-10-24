@@ -7,7 +7,7 @@ You're given an empty grid, and several rows of numbers on the side. You have to
 1. The numbers on the edge indicate how many instances of a specific letter appear in that row or column.
 2. Identical letters can not be horizontally or vertically adjacent.
 
-The inventor of this type is unknown. This puzzle is also known under the names *ABCD Puzzle*, *ABC-Kombi* or *ABCD-Rätsel*.
+The inventor of this type is unknown. This puzzle is also known under the names _ABCD Puzzle_, _ABC-Kombi_ or _ABCD-Rätsel_.
 
 More information: https://www.janko.at/Raetsel/Abc-Kombi/index.htm
 
@@ -25,7 +25,7 @@ Press the 'M' key to fill every empty cell with all possible pencil marks.
 
 ## ABCD parameters
 
-These parameters are available from the ‘Custom…’ option on the ‘Type’ menu. 
+These parameters are available from the ‘Custom…’ option on the ‘Type’ menu.
 
 <dl>
 	<dt>Width, Height</dt>

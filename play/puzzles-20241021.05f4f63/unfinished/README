@@ -9,6 +9,6 @@ targets. If you want to temporarily change that, you can reconfigure
 your build by defining the CMake variable PUZZLES_ENABLE_UNFINISHED.
 For example,
 
-  cmake . -DPUZZLES_ENABLE_UNFINISHED="group;slide"
+cmake . -DPUZZLES_ENABLE_UNFINISHED="group;slide"
 
 will build as if both Group and Slide were fully official puzzles.

@@ -2,15 +2,16 @@
 
 ![](https://raw.githubusercontent.com/x-sheep/puzzles-unreleased/master/docs/img/bricks.png)
 
-Objective of the game: Shade several cells in the hexagonal grid 
+Objective of the game: Shade several cells in the hexagonal grid
 while following these rules:
+
 1. Each shaded cell must have at least one shaded cell below it
    (unless it's on the bottom row).
 2. There can not be 3 or more shaded cells in a horizontal row.
 3. A number indicates the amount of shaded cells around it.
 4. Cells with numbers cannot be shaded.
 
-This genre was invented by [Nikoli](https://www.nikoli.co.jp/) under the name *Tawamurenga*.
+This genre was invented by [Nikoli](https://www.nikoli.co.jp/) under the name _Tawamurenga_.
 
 ## Controls
 
