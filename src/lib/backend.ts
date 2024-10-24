@@ -1,18 +1,58 @@
-// TODO: Real Appwrite
+import { Client, Account, Databases, Query, ID } from 'appwrite';
+
+export const client = new Client();
+
+client.setEndpoint('https://appwrite.puzzles.almostapps.eu/v1').setProject('almost-puzzles');
+
+export const account = new Account(client);
+export const databases = new Databases(client);
 
 export const Backend = {
-	async getFinishes(gameId: string, mode: string, year: number) {
-		return JSON.parse(localStorage.getItem(`${gameId}-${mode}-${year}`) ?? '[]');
+	async getAccount() {
+		return await account.get();
 	},
-	async addFinish(gameId: string, mode: string, year: number, month: number, day: number) {
-		const current = await this.getFinishes(gameId, mode, year);
-		const key = `${month}-${day}`;
+	async getFinishes(userId: string, gameId: string, mode: string, year: number) {
+		const response = await databases.listDocuments('main', 'finishes', [
+			Query.equal('userId', userId),
+			Query.equal('gameId', gameId),
+			Query.equal('mode', mode),
+			Query.equal('year', year),
+			Query.limit(1),
+			Query.orderDesc('$id')
+		]);
 
-		if (current.includes(key)) {
+		if (response.documents.length > 0) {
+			return response.documents[0];
+		}
+
+		const doc = await databases.createDocument('main', 'finishes', ID.unique(), {
+			userId,
+			gameId,
+			mode,
+			year,
+			levels: []
+		});
+
+		return doc;
+	},
+	async addFinish(
+		userId: string,
+		gameId: string,
+		mode: string,
+		year: number,
+		month: number,
+		day: number
+	) {
+		const current = await this.getFinishes(userId, gameId, mode, year);
+		const key = `${month}-${day}`;
+		if (current.levels.includes(key)) {
 			return;
 		}
 
-		current.push(key);
-		localStorage.setItem(`${gameId}-${mode}-${year}`, JSON.stringify(current));
+		current.levels.push(key);
+
+		await databases.updateDocument('main', 'finishes', current.$id, {
+			levels: current.levels
+		});
 	}
 };

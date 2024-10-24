@@ -2,12 +2,15 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import { Backend } from '$lib/backend';
 	import '../app.css';
+	import type { LayoutData } from './$types';
+
+	export let data: LayoutData;
 
 	window.addEventListener('message', async function (message) {
 		if (message.data.type === 'gstp:status') {
 			const level = message.data.data;
 			const [gameId, mode, year, month, day] = level.split('-', 5);
-			await Backend.addFinish(gameId, mode, year, month, day);
+			await Backend.addFinish(data.user.$id, gameId, mode, year, month, day);
 			// TODO: Show alert
 			await invalidateAll();
 			await goto(`/games/${gameId}/${mode}/${year}`);
