@@ -1515,7 +1515,6 @@ static int drag_xform(const game_ui *ui, int x, int y, int v)
     ymin = min(ui->dsy, ui->dey);
     ymax = max(ui->dsy, ui->dey);
 
-#ifndef STYLUS_BASED
     /*
      * Left-dragging has no effect, so we treat a left-drag as a
      * single click on dsx,dsy.
@@ -1524,7 +1523,6 @@ static int drag_xform(const game_ui *ui, int x, int y, int v)
         xmin = xmax = ui->dsx;
         ymin = ymax = ui->dsy;
     }
-#endif
 
     if (x < xmin || x > xmax || y < ymin || y > ymax)
         return v;                      /* no change outside drag area */
@@ -1540,15 +1538,9 @@ static int drag_xform(const game_ui *ui, int x, int y, int v)
          * If stylus-based however, it loops instead.
          */
         if (ui->drag_button == LEFT_BUTTON)
-#ifdef STYLUS_BASED
             v = (v == BLANK ? TENT : (v == TENT ? NONTENT : BLANK));
         else
             v = (v == BLANK ? NONTENT : (v == NONTENT ? TENT : BLANK));
-#else
-            v = (v == BLANK ? TENT : BLANK);
-        else
-            v = (v == BLANK ? NONTENT : BLANK);
-#endif
     } else {
         /*
          * Results of a drag. Left-dragging has no effect.
@@ -1558,11 +1550,7 @@ static int drag_xform(const game_ui *ui, int x, int y, int v)
         if (ui->drag_button == RIGHT_BUTTON)
             v = (v == BLANK ? NONTENT : v);
         else
-#ifdef STYLUS_BASED
             v = (v == BLANK ? NONTENT : v);
-#else
-            /* do nothing */;
-#endif
     }
 
     return v;

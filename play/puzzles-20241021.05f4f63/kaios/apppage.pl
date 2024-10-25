@@ -37,6 +37,17 @@ $prefs</script>
     display: none !important;
 }
 
+body, * {
+	touch-action: manipulation;
+	-webkit-touch-callout:none;
+	-webkit-user-select:none;
+	-khtml-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
 body {
     margin: 0;
     display: flex;

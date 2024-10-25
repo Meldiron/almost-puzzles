@@ -58,21 +58,6 @@ export const Games = {
 			}
 		}
 	},
-	guess: {
-		name: 'Guess',
-		image: 'TODO: Add image',
-		defaultMode: 'normal',
-		modes: {
-			normal: {
-				name: 'Normal',
-				config: 'c6p4g10Bm'
-			},
-			hard: {
-				name: 'Hard',
-				config: 'c8p5g12Bm'
-			}
-		}
-	},
 	inertia: {
 		name: 'Inertia',
 		image: 'TODO: Add image',
@@ -164,22 +149,60 @@ export const Games = {
 			}
 		}
 	},
-	untangle: {
-		name: 'Untangle',
+	flip: {
+		name: 'Flip',
 		image: 'TODO: Add image',
 		defaultMode: 'normal',
 		modes: {
 			easy: {
 				name: 'Easy',
-				config: '6'
+				config: '3x3c'
 			},
 			normal: {
 				name: 'Normal',
-				config: '8'
+				config: '4x4c'
 			},
 			hard: {
 				name: 'Hard',
-				config: '10'
+				config: '5x5c'
+			}
+		}
+	},
+	mosaic: {
+		name: 'Mosaic',
+		image: 'TODO: Add image',
+		defaultMode: 'normal',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '4x4'
+			},
+			normal: {
+				name: 'Normal',
+				config: '6x6'
+			},
+			hard: {
+				name: 'Hard',
+				config: '8x8'
+			}
+		}
+	},
+	pattern: {
+		name: 'Pattern',
+		image: 'TODO: Add image',
+		defaultMode: 'normal',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '4x4'
+			},
+			normal: {
+				name: 'Normal',
+				config: '5x5'
+			},
+			hard: {
+				name: 'Hard',
+				config: '6x6'
 			}
 		}
 	}
