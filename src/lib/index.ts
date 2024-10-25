@@ -4,7 +4,7 @@ export const Games = {
 	ascent: {
 		name: 'Ascent',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -23,7 +23,7 @@ export const Games = {
 	boats: {
 		name: 'Boats',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -42,7 +42,7 @@ export const Games = {
 	filling: {
 		name: 'Filling',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -61,7 +61,7 @@ export const Games = {
 	inertia: {
 		name: 'Inertia',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -80,22 +80,26 @@ export const Games = {
 	lightup: {
 		name: 'Light Up',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
+			easy: {
+				name: 'Easy',
+				config: '5x5b20s0d0'
+			},
 			normal: {
 				name: 'Normal',
-				config: '6x6'
+				config: '6x6b20s0d0'
 			},
 			hard: {
 				name: 'Hard',
-				config: '10x10'
+				config: '7x7b20s0d0'
 			}
 		}
 	},
 	loopy: {
 		name: 'Loopy',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -114,7 +118,7 @@ export const Games = {
 	mines: {
 		name: 'Mines',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -133,7 +137,7 @@ export const Games = {
 	net: {
 		name: 'Net',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -152,7 +156,7 @@ export const Games = {
 	flip: {
 		name: 'Flip',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -171,7 +175,7 @@ export const Games = {
 	mosaic: {
 		name: 'Mosaic',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
@@ -190,7 +194,7 @@ export const Games = {
 	pattern: {
 		name: 'Pattern',
 		image: 'TODO: Add image',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
 			easy: {
 				name: 'Easy',
