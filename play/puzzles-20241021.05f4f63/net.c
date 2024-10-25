@@ -2290,17 +2290,17 @@ static char *interpret_move(const game_state *state, game_ui *ui,
                 ty = ui->dragtiley;
 
                 if (button == LEFT_RELEASE)
-                    action = ROTATE_LEFT;
-                else
                     action = ROTATE_RIGHT;
+                else
+                    action = ROTATE_LEFT;
             } else
                 return nullret;        /* no action */
         }
 
 #else /* USE_DRAGGING */
 
-	action = (button == LEFT_BUTTON ? ROTATE_LEFT :
-		  button == RIGHT_BUTTON ? ROTATE_RIGHT : TOGGLE_LOCK);
+	action = (button == LEFT_BUTTON ? ROTATE_RIGHT :
+		  button == RIGHT_BUTTON ? ROTATE_LEFT : TOGGLE_LOCK);
 
 #endif /* USE_DRAGGING */
 

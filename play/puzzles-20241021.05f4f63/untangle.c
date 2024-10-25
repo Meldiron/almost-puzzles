@@ -40,7 +40,7 @@
 #include "puzzles.h"
 #include "tree234.h"
 
-#define CIRCLE_RADIUS 6
+#define CIRCLE_RADIUS 24
 #define DRAG_THRESHOLD (CIRCLE_RADIUS * 2)
 #define PREFERRED_TILESIZE 64
 

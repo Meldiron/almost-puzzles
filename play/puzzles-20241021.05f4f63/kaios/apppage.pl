@@ -33,7 +33,7 @@ print <<EOF;
 <script class="preferences" type="text/plain">
 $prefs</script>
 <style class="text/css">
-.prod #puzzle > div.softkey, .prod #gamemenu, .prod #statusbar {
+.prod .rsk {
     display: none !important;
 }
 
@@ -43,7 +43,7 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    bottom: 0;
+    bottom: 30px;
     font-family: "Open Sans", sans-serif;
     font-size: 17px;
 }

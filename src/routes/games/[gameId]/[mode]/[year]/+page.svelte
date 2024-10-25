@@ -30,15 +30,15 @@
 	<div class="w-full flex justify-center">
 		<div class="w-full flex items-center flex-col mb-10">
 			<div>
-				<h1 class="mt-6 mb-3 text-neutral-50 text-center text-3xl font-light font-serif">
+				<h1 class="mt-6 mb-9 text-neutral-50 text-center text-3xl font-light font-serif">
 					{data.game.name}
 				</h1>
-				<div class="mb-2 flex items-center justify-center gap-3">
+				<div class="mb-4 flex items-center justify-center gap-3">
 					{#each Object.keys(data.game.modes) as mode}
 						{@const modeData = data.game.modes[mode]}
 
 						{#if mode === data.mode}
-							<p class="text-sm text-neutral-300">{modeData.name}</p>
+							<p class="text-md text-neutral-800 bg-neutral-300 rounded-full px-3 py-1">{modeData.name}</p>
 						{:else}
 							<a
 								on:click={() => {
@@ -46,28 +46,28 @@
 									updated = Date.now();
 								}}
 								href={`/games/${data.gameId}/${mode}/${data.year}`}
-								class="text-sm text-neutral-600 underline">{modeData.name}</a
+								class="text-md text-neutral-100 underline">{modeData.name}</a
 							>
 						{/if}
 					{/each}
 				</div>
-				<div class="mb-6 flex items-center justify-center gap-3">
+				<div class="mb-12 flex items-center justify-center gap-3">
 					<a
 						on:click={() => {
 							invalidateAll();
 							updated = Date.now();
 						}}
 						href={`/games/${data.gameId}/${data.mode}/${data.year - 1}`}
-						class="text-sm text-neutral-600 underline">{data.year - 1}</a
+						class="text-md text-neutral-100 underline">{data.year - 1}</a
 					>
-					<p class="text-sm text-neutral-300">{data.year}</p>
+					<p class="text-md text-neutral-800 bg-neutral-300 rounded-full px-3 py-1">{data.year}</p>
 					<a
 						on:click={() => {
 							invalidateAll();
 							updated = Date.now();
 						}}
 						href={`/games/${data.gameId}/${data.mode}/${data.year + 1}`}
-						class="text-sm text-neutral-600 underline">{data.year + 1}</a
+						class="text-md text-neutral-100 underline">{data.year + 1}</a
 					>
 				</div>
 			</div>

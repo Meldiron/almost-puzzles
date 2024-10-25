@@ -3075,10 +3075,8 @@ static char *interpret_move(const game_state *state, game_ui *ui,
 	    button_char = 'y';
 	    break;
 	  case LINE_YES:
-#ifdef STYLUS_BASED
 	    button_char = 'n';
 	    break;
-#endif
 	  case LINE_NO:
 	    button_char = 'u';
 	    break;
@@ -3093,10 +3091,8 @@ static char *interpret_move(const game_state *state, game_ui *ui,
 	    button_char = 'n';
 	    break;
 	  case LINE_NO:
-#ifdef STYLUS_BASED
 	    button_char = 'y';
 	    break;
-#endif
 	  case LINE_YES:
 	    button_char = 'u';
 	    break;

@@ -46,15 +46,15 @@ export const Games = {
 		modes: {
 			easy: {
 				name: 'Easy',
-				config: '5x5'
+				config: '4x4'
 			},
 			normal: {
 				name: 'Normal',
-				config: '6x6'
+				config: '4x5'
 			},
 			hard: {
 				name: 'Hard',
-				config: '7x7'
+				config: '5x5'
 			}
 		}
 	},
