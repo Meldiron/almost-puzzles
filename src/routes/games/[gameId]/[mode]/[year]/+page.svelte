@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import type { PageData } from '../../../[gameId]-[mode]-[year]/[year]/$types';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 
@@ -71,7 +71,7 @@
 					>
 				</div>
 			</div>
-			<div class="max-w-[500px] w-full">
+			<div class="max-w-[500px] w-full" id="board">
 				<div class="grid w-full" style="grid-template-columns: repeat(13, minmax(0, 1fr));">
 					<div class="col-span-1">
 						<div class=" w-full aspect-square flex items-center justify-center">

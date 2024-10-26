@@ -13,7 +13,7 @@
 			await Backend.addFinish(data.user.$id, gameId, mode, +year, +month, +day);
 			// TODO: Show alert
 			await invalidateAll();
-			await goto(`/games/${gameId}/${mode}/${year}`);
+			await goto(`/games/${gameId}/${mode}/${year}#board`);
 		}
 	});
 </script>

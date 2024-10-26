@@ -381,6 +381,16 @@ body {
 })();
 </script>
 
+
+<script>
+window.addEventListener('message', async function (message) {
+		if (message.data.type === 'gstp:command') {
+			const i = message.data.data;
+            command(i);
+		}
+	});
+</script>
+
 </body>
 </html>
 EOF

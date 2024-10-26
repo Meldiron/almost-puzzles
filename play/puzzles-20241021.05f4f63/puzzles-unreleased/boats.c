@@ -3207,11 +3207,11 @@ static char *interpret_move(const game_state *state, game_ui *ui, const game_dra
 			to = '-';
 			
 			if(button == LEFT_BUTTON)
-				to = from == 'B' ? 'W' : from == '-' ? 'B' : '-';
+				to = from == 'W' ? 'B' : from == '-' ? 'W' : '-';
 			if(button == LEFT_BUTTON && to == 'W')
 				from = '*';
 			if(button == RIGHT_BUTTON)
-				to = from == '-' ? 'W' : '-';
+				to = from == '-' ? 'B' : '-';
 			
 			if(button == MIDDLE_BUTTON)
 				from = '*';

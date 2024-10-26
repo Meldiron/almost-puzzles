@@ -25,7 +25,6 @@ mergeInto(LibraryManager.library, {
 		var url = new URL(window.location.href);
 		var level = url.searchParams.get('level');
 		var origin = url.searchParams.get('origin');
-		console.log(level, origin);
 		parent.postMessage(
 			{
 				type: 'gstp:status',

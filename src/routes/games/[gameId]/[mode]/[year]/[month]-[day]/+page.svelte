@@ -3,6 +3,38 @@
 	import type { PageData } from '../../../../[gameId]-[mode]-[year]/[year]/[date]/$types';
 
 	export let data: PageData;
+
+
+	function undo() {
+		document.getElementById('game').contentWindow.postMessage(
+			{
+				type: 'gstp:command',
+				data: 7
+			},
+			playUrl
+		);
+	}
+
+	function redo() {
+		document.getElementById('game').contentWindow.postMessage(
+			{
+				type: 'gstp:command',
+				data: 8
+			},
+			playUrl
+		);
+	}
+
+	function restart() {
+		document.getElementById('game').contentWindow.postMessage(
+			{
+				type: 'gstp:command',
+				data: 6
+			},
+			playUrl
+		);
+	}
+
 </script>
 
 <div class="bg-neutral-800 mt-3 rounded-xl text-neutral-300 text-sm underline px-4 p-2">
@@ -18,10 +50,17 @@
 	</p>
 </div>
 
+<div class="mt-6 flex items-center justify-center gap-3">
+	<button on:click={undo}>Undo</button>
+	<button on:click={redo}>Redo</button>
+	<button on:click={restart}>Restart</button>
+</div>
+
 <div
-	class="mt-6 w-full max-w-[600px] mx-auto aspect-square relative rounded-xl overflow-hidden bg-neutral-950"
+	class="mt-3 w-full max-w-[600px] mx-auto aspect-square relative rounded-xl overflow-hidden bg-neutral-950"
 >
 	<iframe
+		id="game"
 		class="responsive-iframe"
 		title="Game"
 		src={`${playUrl}/${data.gameId}-kaios.html?origin=${encodeURIComponent(window.location.origin)}&level=${data.gameId}-${data.mode}-${data.year}-${data.month}-${data.day}#${encodeURIComponent(`${data.game.modes[data.mode].config}#${data.year}${data.month}${data.day}`)}`}
