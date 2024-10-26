@@ -4,7 +4,6 @@
 
 	export let data: PageData;
 
-
 	function undo() {
 		document.getElementById('game').contentWindow.postMessage(
 			{
@@ -35,10 +34,32 @@
 		);
 	}
 
+	$: {
+		if (data.finished) {
+			Swal.fire({
+				title: 'Level already finished!',
+				html: `
+					<div class="flex items-center flex-col gap-6">
+						<div class="flex items-center justify-cengter gap-4">
+							<button onclick="Swal.close();" class="bg-neutral-200 text-neutral-900 rounded-xl px-3 py-2">Play anyway</button>
+						</div>
+
+						<div class="flex items-center justify-cengter gap-4">
+							<a onclick="Swal.close();" href="/games/${data.gameId}/${data.mode}/${data.year}#board"><button class="bg-transparent text-neutral-100 rounded-xl px-3 py-2underline ">Level Selector</button></a>
+						</div>
+					</div>
+				`,
+				icon: 'warning',
+				showDenyButton: false,
+				showCancelButton: false,
+				showConfirmButton: false
+			});
+		}
+	}
 </script>
 
 <div class="bg-neutral-800 mt-3 rounded-xl text-neutral-300 text-sm underline px-4 p-2">
-	<a href={`/games/${data.gameId}/${data.mode}/${data.year}`}>Back to levels</a>
+	<a href={`/games/${data.gameId}/${data.mode}/${data.year}#board`}>Back to levels</a>
 </div>
 
 <div class="mt-6">
@@ -51,9 +72,11 @@
 </div>
 
 <div class="mt-6 flex items-center justify-center gap-3">
-	<button on:click={undo}>Undo</button>
-	<button on:click={redo}>Redo</button>
-	<button on:click={restart}>Restart</button>
+	<button class="bg-neutral-200 text-neutral-800 px-4 py-1 rounded-xl" on:click={undo}>Undo</button>
+	<button class="bg-neutral-200 text-neutral-800 px-4 py-1 rounded-xl" on:click={redo}>Redo</button>
+	<button class="bg-neutral-200 text-neutral-800 px-4 py-1 rounded-xl" on:click={restart}
+		>Restart</button
+	>
 </div>
 
 <div

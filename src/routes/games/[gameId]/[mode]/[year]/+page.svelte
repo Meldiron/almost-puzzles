@@ -38,7 +38,9 @@
 						{@const modeData = data.game.modes[mode]}
 
 						{#if mode === data.mode}
-							<p class="text-md text-neutral-800 bg-neutral-300 rounded-full px-3 py-1">{modeData.name}</p>
+							<p class="text-md text-neutral-800 bg-neutral-300 rounded-full px-3 py-1">
+								{modeData.name}
+							</p>
 						{:else}
 							<a
 								on:click={() => {
