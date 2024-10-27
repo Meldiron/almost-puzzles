@@ -211,3 +211,9 @@ export const Games = {
 		}
 	}
 };
+
+export function isInFuture(year: number, month: number, day: number) {
+	const now = Date.now();
+	const futureNow = new Date(year, month - 1, day).getTime();
+	return futureNow > now;
+}

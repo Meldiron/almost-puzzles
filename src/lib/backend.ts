@@ -11,6 +11,15 @@ export const Backend = {
 	async getAccount() {
 		return await account.get();
 	},
+	async getAllFinishes(userId: number) {
+		const response = await databases.listDocuments('main', 'finishes', [
+			Query.equal('userId', userId),
+			Query.limit(1000), // TODO: Pagination
+			Query.orderDesc('$id')
+		]);
+
+		return response.documents;
+	},
 	async getFinishes(userId: string, gameId: string, mode: string, year: number) {
 		const response = await databases.listDocuments('main', 'finishes', [
 			Query.equal('userId', userId),

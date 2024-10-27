@@ -45,6 +45,7 @@
 						</div>
 
 						<div class="flex items-center justify-cengter gap-4">
+							<a onclick="Swal.close();" href="/"><button class="bg-transparent text-neutral-100 rounded-xl px-3 py-2underline ">Main menu</button></a>
 							<a onclick="Swal.close();" href="/games/${data.gameId}/${data.mode}/${data.year}#board"><button class="bg-transparent text-neutral-100 rounded-xl px-3 py-2underline ">Level Selector</button></a>
 						</div>
 					</div>

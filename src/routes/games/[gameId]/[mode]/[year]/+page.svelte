@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { isInFuture } from '$lib';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -11,12 +12,6 @@
 	const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 	if (isLeapYear) {
 		daysInMonths[1] = 29;
-	}
-
-	function isInFuture(year: number, month: number, day: number) {
-		const now = Date.now();
-		const futureNow = new Date(year, month - 1, day).getTime();
-		return futureNow > now;
 	}
 
 	let updated = Date.now();
@@ -105,7 +100,7 @@
 								{:else}
 									<a
 										class="group"
-										href={`/games/${data.gameId}/${data.mode}/${data.year}/${month}-${day}`}
+										href={`/games/${data.gameId}/${data.mode}/${data.year}/${month}-${day}#game`}
 									>
 										{#if data.finishes.levels.includes(`${month}-${day}`)}
 											<div
