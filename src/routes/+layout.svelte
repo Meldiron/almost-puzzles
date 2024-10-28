@@ -34,7 +34,18 @@
 					const previousLevel = `${date.getMonth() + 1}-${date.getDate()}`;
 
 					const completed = finishes.levels.length;
-					const total = isLeapYear(+year) ? 366 : 365;
+
+					let diffInDays = 0;
+					if (+year === new Date().getFullYear()) {
+						const firstDayOfYear = new Date(+year, 0, 1);
+						const now = new Date();
+						const diffInSeconds = now.getTime() - firstDayOfYear.getTime();
+						diffInDays = Math.ceil(diffInSeconds / (1000 * 60 * 60 * 24));
+					} else {
+						diffInDays = isLeapYear(+year) ? 366 : 365;
+					}
+
+					const total = diffInDays;
 					const halfPercentage = Math.ceil(((completed / total) * 100) / 2);
 
 					Swal.fire({
