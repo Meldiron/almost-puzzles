@@ -46,7 +46,11 @@
 					}
 
 					const total = diffInDays;
-					const halfPercentage = Math.ceil(((completed / total) * 100) / 2);
+					let halfPercentage = Math.floor(((completed / total) * 100) / 2);
+
+					if(completed >= total) {
+						halfPercentage = 50;
+					}
 
 					Swal.fire({
 						title: 'Level completed!',
@@ -77,7 +81,6 @@
 									</div>
 								</div>
 							`,
-						icon: 'none',
 						showDenyButton: false,
 						showCancelButton: false,
 						showConfirmButton: false
