@@ -53,7 +53,7 @@
 					}
 
 					Swal.fire({
-						title: 'Level completed!',
+						title: '',
 						html: `
 								<div class="flex w-full items-center justify-center">
 									<div class="relative size-40">
@@ -68,6 +68,8 @@
 										</div>
 									</div>
 								</div>
+
+								<h1 class="text-3xl font-semibold -mt-14 mb-6">Level completed!</h1>
 
 								<div class="flex items-center flex-col gap-6">
 									<div class="flex items-center justify-cengter gap-4">
