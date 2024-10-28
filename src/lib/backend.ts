@@ -55,12 +55,12 @@ export const Backend = {
 		const current = await this.getFinishes(userId, gameId, mode, year);
 		const key = `${month}-${day}`;
 		if (current.levels.includes(key)) {
-			return;
+			return current;
 		}
 
 		current.levels.push(key);
 
-		await databases.updateDocument('main', 'finishes', current.$id, {
+		return await databases.updateDocument('main', 'finishes', current.$id, {
 			levels: current.levels
 		});
 	}

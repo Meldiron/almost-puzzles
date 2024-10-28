@@ -40,6 +40,7 @@ export const Games = {
 		}
 	},
 	filling: {
+		keys: '1234567890',
 		name: 'Filling',
 		image: 'TODO: Add image',
 		defaultMode: 'easy',
@@ -209,6 +210,80 @@ export const Games = {
 				config: '6x6'
 			}
 		}
+	},
+	tents: {
+		name: 'Tents',
+		image: 'TODO: Add image',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '5x5de'
+			},
+			normal: {
+				name: 'Normal',
+				config: '6x6de'
+			},
+			hard: {
+				name: 'Hard',
+				config: '7x7de'
+			}
+		}
+	},
+	unruly: {
+		name: 'Unruly',
+		image: 'TODO: Add image',
+		defaultMode: 'normal',
+		modes: {
+			normal: {
+				name: 'Normal',
+				config: '6x6dt'
+			},
+			hard: {
+				name: 'Hard',
+				config: '8x8dt'
+			}
+		}
+	},
+	solo: {
+		keys: '1234567890',
+		name: 'Solo',
+		image: 'TODO: Add image',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '2x2a'
+			},
+			normal: {
+				name: 'Normal',
+				config: '2x3adb'
+			},
+			hard: {
+				name: 'Hard',
+				config: '3x3adb'
+			}
+		}
+	},
+	unequal: {
+		keys: '123450',
+		name: 'Unequal',
+		image: 'TODO: Add image',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '4de'
+			},
+			normal: {
+				name: 'Normal',
+				config: '5de'
+			},
+			hard: {
+				name: 'Hard',
+				config: '6de'
+			}
+		}
 	}
 };
 
@@ -216,4 +291,8 @@ export function isInFuture(year: number, month: number, day: number) {
 	const now = Date.now();
 	const futureNow = new Date(year, month - 1, day).getTime();
 	return futureNow > now;
+}
+
+export function isLeapYear(year: number) {
+	return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 }

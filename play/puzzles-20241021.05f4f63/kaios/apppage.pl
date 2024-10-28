@@ -388,6 +388,19 @@ window.addEventListener('message', async function (message) {
 			const i = message.data.data;
             command(i);
 		}
+
+        if (message.data.type === 'gstp:keypress') {
+			const charPressed = message.data.data;
+            var key = Module.cwrap('key', 'boolean', [
+                'number',
+                'string',
+                'string',
+                'number',
+                'number',
+                'number'
+            ]);
+            key(charPressed.charCodeAt(0), charPressed, undefined, 0, 0, 0)
+        }
 	});
 </script>
 

@@ -14,6 +14,7 @@
 		{#each Object.keys(Games) as gameId}
 			{@const game = Games[gameId]}
 			<a
+				id={gameId}
 				href={`/games/${gameId}`}
 				class="group col-span-3 p-3 bg-neutral-800 border rounded-2xl border-neutral-600"
 			>

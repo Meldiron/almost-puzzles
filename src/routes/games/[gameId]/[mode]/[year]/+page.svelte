@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { isInFuture } from '$lib';
+	import { isInFuture, isLeapYear } from '$lib';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -9,8 +9,7 @@
 	const daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 	const year = data.year;
-	const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-	if (isLeapYear) {
+	if (isLeapYear(year)) {
 		daysInMonths[1] = 29;
 	}
 

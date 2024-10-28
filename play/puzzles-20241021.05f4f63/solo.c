@@ -4660,16 +4660,26 @@ static char *interpret_move(const game_state *state, game_ui *ui,
 
     if (tx >= 0 && tx < cr && ty >= 0 && ty < cr) {
         if (button == LEFT_BUTTON) {
+            if  (tx != ui->hx || ty != ui->hy) {
+                ui->hshow = false;
+                ui->hpencil = false;
+            }
+
+            ui->hx = tx; ui->hy = ty;
+
+            /* normal highlighting for non-immutable squares */
             if (state->immutable[ty*cr+tx]) {
                 ui->hshow = false;
-            } else if (tx == ui->hx && ty == ui->hy &&
-                       ui->hshow && !ui->hpencil) {
-                ui->hshow = false;
-            } else {
-                ui->hx = tx;
-                ui->hy = ty;
+                ui->hpencil = false;
+            } else if (tx == ui->hx && ty == ui->hy && ui->hshow == false) {
                 ui->hshow = true;
                 ui->hpencil = false;
+            } else if (tx == ui->hx && ty == ui->hy && ui->hshow == true && ui->hpencil == false) {
+                ui->hshow = true;
+                ui->hpencil = true;
+            } else if (tx == ui->hx && ty == ui->hy && ui->hshow == true && ui->hpencil == true) {
+                ui->hpencil = false;
+                ui->hshow = false;
             }
             ui->hcursor = false;
             return MOVE_UI_UPDATE;

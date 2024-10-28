@@ -4,6 +4,16 @@
 
 	export let data: PageData;
 
+	function sendButton(button: string) {
+		document.getElementById('game').contentWindow.postMessage(
+			{
+				type: 'gstp:keypress',
+				data: button
+			},
+			playUrl
+		);
+	}
+
 	function undo() {
 		document.getElementById('game').contentWindow.postMessage(
 			{
@@ -45,7 +55,7 @@
 						</div>
 
 						<div class="flex items-center justify-cengter gap-4">
-							<a onclick="Swal.close();" href="/"><button class="bg-transparent text-neutral-100 rounded-xl px-3 py-2underline ">Main menu</button></a>
+							<a onclick="Swal.close();" href="/#${data.gameId}"><button class="bg-transparent text-neutral-100 rounded-xl px-3 py-2underline ">Main menu</button></a>
 							<a onclick="Swal.close();" href="/games/${data.gameId}/${data.mode}/${data.year}#board"><button class="bg-transparent text-neutral-100 rounded-xl px-3 py-2underline ">Level Selector</button></a>
 						</div>
 					</div>
@@ -90,3 +100,14 @@
 		src={`${playUrl}/${data.gameId}-kaios.html?origin=${encodeURIComponent(window.location.origin)}&level=${data.gameId}-${data.mode}-${data.year}-${data.month}-${data.day}#${encodeURIComponent(`${data.game.modes[data.mode].config}#${data.year}${data.month}${data.day}`)}`}
 	></iframe>
 </div>
+
+{#if data.game.keys}
+	<div class="flex mt-3 w-full max-w-[600px] mx-auto gap-2">
+		{#each data.game.keys.split('') as buttonKey}
+			<button
+				on:click={() => sendButton(buttonKey)}
+				class="text-2xl font-light bg-white w-full rounded-lg p-3">{buttonKey}</button
+			>
+		{/each}
+	</div>
+{/if}
