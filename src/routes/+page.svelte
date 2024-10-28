@@ -37,7 +37,7 @@
 				</h2>
 				<div class="rounded-2xl bg-black w-full aspect-square">
 					<img
-						class="w-full h-full object-cover object-center"
+						class="w-full h-full object-cover object-center rounded-lg"
 						src={`/screenshots/${gameId}.png`}
 						alt="Game preview"
 					/>
