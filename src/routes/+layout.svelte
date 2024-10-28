@@ -48,7 +48,7 @@
 					const total = diffInDays;
 					let halfPercentage = Math.floor(((completed / total) * 100) / 2);
 
-					if(completed >= total) {
+					if (completed >= total) {
 						halfPercentage = 50;
 					}
 

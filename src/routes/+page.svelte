@@ -1,9 +1,23 @@
 <script lang="ts">
 	import { Games } from '$lib';
 	import type { PageData } from './$types';
+	import { Backend } from '$lib/backend';
+	import { invalidateAll } from '$app/navigation';
 
 	export let data: PageData;
+
+	async function logout() {
+		await Backend.logout();
+		await invalidateAll();
+	}
 </script>
+
+<div
+	class="bg-neutral-800 mt-3 flex items-center justify-between rounded-xl text-neutral-300 text-sm underline px-4 p-2"
+>
+	<a href="/profiles/me">My Profile</a>
+	<button on:click={logout}>Log out</button>
+</div>
 
 <div class="mt-6">
 	<h1 class="mt-12 mb-12 text-neutral-50 text-3xl text-center font-light font-serif">
@@ -21,7 +35,13 @@
 				<h2 class="group-hover:underline text-center text-lg font-semibold text-neutral-200 mb-3">
 					{game.name}
 				</h2>
-				<div class="rounded-2xl bg-black w-full aspect-square"></div>
+				<div class="rounded-2xl bg-black w-full aspect-square">
+					<img
+						class="w-full h-full object-cover object-center"
+						src={`/screenshots/${gameId}.png`}
+						alt="Game preview"
+					/>
+				</div>
 
 				<div class="grid grid-cols-12 mt-3 gap-2">
 					{#each Object.keys(game.modes) as mode}

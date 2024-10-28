@@ -1538,7 +1538,7 @@ static int drag_xform(const game_ui *ui, int x, int y, int v)
          * If stylus-based however, it loops instead.
          */
         if (ui->drag_button == LEFT_BUTTON)
-            v = (v == BLANK ? TENT : (v == TENT ? NONTENT : BLANK));
+            v = (v == BLANK ? NONTENT : (v == NONTENT ? TENT : BLANK));
         else
             v = (v == BLANK ? NONTENT : (v == NONTENT ? TENT : BLANK));
     } else {

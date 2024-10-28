@@ -1563,7 +1563,7 @@ static char *interpret_move(const game_state *state, game_ui *ui,
             ui->hx = x; ui->hy = y;
 
             /* normal highlighting for non-immutable squares */
-            if (GRID(state, nums, x, y) != 0) {
+            if (GRID(state, flags, x, y) & F_IMMUTABLE) {
                 ui->hshow = false;
                 ui->hpencil = false;
             } else if (x == ui->hx && y == ui->hy && ui->hshow == false) {

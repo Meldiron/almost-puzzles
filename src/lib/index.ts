@@ -3,7 +3,6 @@ export const playUrl = 'https://simon-tatham-puzzles.surge.sh';
 export const Games = {
 	ascent: {
 		name: 'Ascent',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -22,7 +21,6 @@ export const Games = {
 	},
 	boats: {
 		name: 'Boats',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -42,7 +40,6 @@ export const Games = {
 	filling: {
 		keys: '1234567890',
 		name: 'Filling',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -61,7 +58,6 @@ export const Games = {
 	},
 	inertia: {
 		name: 'Inertia',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -80,7 +76,6 @@ export const Games = {
 	},
 	lightup: {
 		name: 'Light Up',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -99,7 +94,6 @@ export const Games = {
 	},
 	loopy: {
 		name: 'Loopy',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -118,7 +112,6 @@ export const Games = {
 	},
 	mines: {
 		name: 'Mines',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -137,7 +130,6 @@ export const Games = {
 	},
 	net: {
 		name: 'Net',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -156,7 +148,6 @@ export const Games = {
 	},
 	flip: {
 		name: 'Flip',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -175,7 +166,6 @@ export const Games = {
 	},
 	mosaic: {
 		name: 'Mosaic',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -194,7 +184,6 @@ export const Games = {
 	},
 	pattern: {
 		name: 'Pattern',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -213,7 +202,6 @@ export const Games = {
 	},
 	tents: {
 		name: 'Tents',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -232,7 +220,6 @@ export const Games = {
 	},
 	unruly: {
 		name: 'Unruly',
-		image: 'TODO: Add image',
 		defaultMode: 'normal',
 		modes: {
 			normal: {
@@ -248,7 +235,6 @@ export const Games = {
 	solo: {
 		keys: '1234567890',
 		name: 'Solo',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {
@@ -268,7 +254,6 @@ export const Games = {
 	unequal: {
 		keys: '123450',
 		name: 'Unequal',
-		image: 'TODO: Add image',
 		defaultMode: 'easy',
 		modes: {
 			easy: {

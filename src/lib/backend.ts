@@ -11,7 +11,10 @@ export const Backend = {
 	async getAccount() {
 		return await account.get();
 	},
-	async getAllFinishes(userId: number) {
+	async logout() {
+		return await account.deleteSession('current');
+	},
+	async getAllFinishes(userId: string) {
 		const response = await databases.listDocuments('main', 'finishes', [
 			Query.equal('userId', userId),
 			Query.limit(1000), // TODO: Pagination

@@ -69,7 +69,10 @@
 	}
 </script>
 
-<div class="bg-neutral-800 mt-3 rounded-xl text-neutral-300 text-sm underline px-4 p-2">
+<div
+	class="bg-neutral-800 mt-3 flex items-center justify-between rounded-xl text-neutral-300 text-sm underline px-4 p-2"
+>
+	<a href="/#{data.gameId}">Main Menu</a>
 	<a href={`/games/${data.gameId}/${data.mode}/${data.year}#board`}>Back to levels</a>
 </div>
 
