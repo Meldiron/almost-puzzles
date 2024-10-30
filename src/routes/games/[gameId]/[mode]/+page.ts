@@ -15,5 +15,5 @@ export const load: PageLoad = ({ params }) => {
 
 	const year = new Date().getFullYear();
 
-	redirect(307, `/games/${params.gameId}/${game.defaultMode}/${year}`);
+	redirect(307, `/games/${params.gameId}/${params.mode}/${year}`);
 };

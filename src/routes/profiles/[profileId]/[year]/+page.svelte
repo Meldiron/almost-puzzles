@@ -134,32 +134,34 @@
 			id={gameId}
 			class={`col-span-6 p-3 px-4 bg-neutral-800 border border rounded-2xl border-neutral-600 ${thisYearCompletedAllGamemodes(gameId) ? 'border-amber-500 bg-amber-950 bg-opacity-50' : ''}`}
 		>
-			<div class="flex items-start justify-between gap-4">
-				<div class="h-32 aspect-square bg-black">
-					<img
-						class="w-full h-full object-cover object-center rounded-lg"
-						src={`/screenshots/${gameId}.png`}
-						alt="Game preview"
-					/>
-				</div>
-				<div class="w-full">
-					<h2
-						class={`text-xl font-semibold mb-1 ${thisYearCompletedAllGamemodes(gameId) ? 'text-amber-500' : 'text-white'}`}
-					>
-						{game.name}
-					</h2>
-					<p class="text-neutral-400 text-sm">
-						<span class="text-xl text-neutral-200 font-bold">{getTotalFinished(gameId)}</span> total
-						finishes
-					</p>
-					<p class="text-neutral-400 text-sm">
-						<span class="text-xl text-neutral-200 font-bold"
-							>{getThisYearFinishes(gameId, data.year)}</span
+			<a class="group" href={`/games/${gameId}`}>
+				<div class="flex items-start justify-between gap-4">
+					<div class="h-32 aspect-square bg-black">
+						<img
+							class="w-full h-full object-cover object-center rounded-lg"
+							src={`/screenshots/${gameId}.png`}
+							alt="Game preview"
+						/>
+					</div>
+					<div class="w-full">
+						<h2
+							class={`group-hover:underline text-xl font-semibold mb-1 ${thisYearCompletedAllGamemodes(gameId) ? 'text-amber-500' : 'text-white'}`}
 						>
-						in year {data.year}
-					</p>
+							{game.name}
+						</h2>
+						<p class="text-neutral-400 text-sm">
+							<span class="text-xl text-neutral-200 font-bold">{getTotalFinished(gameId)}</span> total
+							finishes
+						</p>
+						<p class="text-neutral-400 text-sm">
+							<span class="text-xl text-neutral-200 font-bold"
+								>{getThisYearFinishes(gameId, data.year)}</span
+							>
+							in year {data.year}
+						</p>
+					</div>
 				</div>
-			</div>
+			</a>
 
 			<div class="mt-3 flex flex-col gap-5 mb-2">
 				{#each Object.keys(game.modes) as mode}
@@ -168,9 +170,9 @@
 						getGamemodeThisYearFinishes(gameId, mode, data.year),
 						availableThisYear(data.year)
 					)}
-					<div>
+					<a href={`/games/${gameId}/${mode}/${data.year}`} class="group">
 						<div class="flex justify-between mb-1">
-							<span class="text-base font-medium text-white">{modeData.name}</span>
+							<span class="group-hover:underline text-base font-medium text-white">{modeData.name}</span>
 							<span
 								class={`text-sm font-medium font-light ${percentage >= 100 ? 'text-amber-400' : 'text-neutral-300'}`}
 								>{percentage}%</span
@@ -182,7 +184,7 @@
 								style={`width: ${percentage}%`}
 							></div>
 						</div>
-					</div>
+					</a>
 				{/each}
 			</div>
 		</div>
