@@ -6,7 +6,61 @@
 
 	let updated = Date.now();
 
-	function thisYearCompletedAllGamemodes(gameId: number) {
+	$: {
+		data;
+
+		updated = Date.now();
+	}
+
+	function getAllExistingModes() {
+		const modes = [];
+
+		for (const game of Object.keys(Games)) {
+			for (const mode of Object.keys(Games[game].modes)) {
+				if (!modes[mode]) {
+					modes[mode] = {
+						...Games[game].modes[mode]
+					};
+				}
+			}
+		}
+
+		return modes;
+	}
+
+	function getOverallThisYear(year: number) {
+		const total = data.finishes
+			.filter((finish) => finish.year === year)
+			.reduce((acc, finish) => {
+				return acc + finish.levels.length;
+			}, 0);
+
+		return total;
+	}
+
+	function getOverallTotal() {
+		const total = data.finishes.reduce((acc, finish) => {
+			return acc + finish.levels.length;
+		}, 0);
+
+		return total;
+	}
+
+	function getOverallPercentage(year: number, mode: string) {
+		const current = data.finishes
+			.filter((finish) => finish.year === year && finish.mode === mode)
+			.reduce((acc, finish) => {
+				return acc + finish.levels.length;
+			}, 0);
+
+		const gamesWithMode = Object.keys(Games).filter((game) => Games[game].modes[mode]).length;
+
+		const total = availableThisYear(year) * gamesWithMode;
+
+		return getPercentage(current, total);
+	}
+
+	function thisYearCompletedAllGamemodes(gameId: string) {
 		let allFinished = true;
 
 		const game = Games[gameId];
@@ -21,6 +75,16 @@
 		}
 
 		return allFinished;
+	}
+
+	function overallCompletedAll() {
+		for (const game of Object.keys(Games)) {
+			if (!thisYearCompletedAllGamemodes(game)) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	function getSortedGames() {
@@ -128,11 +192,56 @@
 {/key}
 
 <div class="grid grid-cols-6 md:grid-cols-12 mt-0 gap-4">
+	<div
+		class={`flex flex-col justify-between col-span-6 p-3 px-4 border border rounded-2xl ${overallCompletedAll() ? 'border-amber-500 bg-amber-950 bg-opacity-50' : 'border-neutral-600 bg-neutral-900 border-neutral-800'}`}
+	>
+		<div class="flex items-start justify-between gap-4">
+			<div class="w-full flex flex-col items-center mt-3">
+				<h2
+					class={`group-hover:underline text-xl font-semibold mb-1 ${overallCompletedAll() ? 'text-amber-500' : 'text-white'}`}
+				>
+					Overall statistics
+				</h2>
+				<p class="text-neutral-400 text-sm">
+					<span class="text-xl text-neutral-200 font-bold">{getOverallTotal()}</span> total finishes
+				</p>
+				<p class="text-neutral-400 text-sm">
+					<span class="text-xl text-neutral-200 font-bold">{getOverallThisYear(data.year)}</span>
+					in year {data.year}
+				</p>
+			</div>
+		</div>
+
+		<div class="mt-3 flex flex-col gap-5 mb-2">
+			{#each Object.keys(getAllExistingModes()) as mode}
+				{@const modeData = getAllExistingModes()[mode]}
+				{@const percentage = getOverallPercentage(data.year, mode)}
+				<div class="">
+					<div class="flex justify-between mb-1">
+						<span class="group-hover:underline text-base font-medium text-white"
+							>{modeData.name}</span
+						>
+						<span
+							class={`text-sm font-medium font-light ${percentage >= 100 ? 'text-amber-400' : 'text-neutral-300'}`}
+							>{percentage}%</span
+						>
+					</div>
+					<div class="w-full bg-neutral-700 rounded-full h-2.5">
+						<div
+							class={`h-2.5 rounded-full ${percentage >= 100 ? 'bg-amber-500' : 'bg-neutral-200'}`}
+							style={`width: ${percentage}%`}
+						></div>
+					</div>
+				</div>
+			{/each}
+		</div>
+	</div>
+
 	{#each getSortedGames(data.finishes) as gameId}
 		{@const game = Games[gameId]}
 		<div
 			id={gameId}
-			class={`col-span-6 p-3 px-4 bg-neutral-800 border border rounded-2xl border-neutral-600 ${thisYearCompletedAllGamemodes(gameId) ? 'border-amber-500 bg-amber-950 bg-opacity-50' : ''}`}
+			class={`col-span-6 p-3 px-4 border border rounded-2xl ${thisYearCompletedAllGamemodes(gameId) ? 'border-amber-500 bg-amber-950 bg-opacity-50' : 'border-neutral-600 bg-neutral-800'}`}
 		>
 			<a class="group" href={`/games/${gameId}`}>
 				<div class="flex items-start justify-between gap-4">
@@ -172,7 +281,9 @@
 					)}
 					<a href={`/games/${gameId}/${mode}/${data.year}`} class="group">
 						<div class="flex justify-between mb-1">
-							<span class="group-hover:underline text-base font-medium text-white">{modeData.name}</span>
+							<span class="group-hover:underline text-base font-medium text-white"
+								>{modeData.name}</span
+							>
 							<span
 								class={`text-sm font-medium font-light ${percentage >= 100 ? 'text-amber-400' : 'text-neutral-300'}`}
 								>{percentage}%</span
