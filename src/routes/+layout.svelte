@@ -58,13 +58,13 @@
 								<div class="flex w-full items-center justify-center">
 									<div class="relative size-40">
 										<svg class="size-full rotate-180" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
-											<circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-green-900" stroke-width="3" stroke-dasharray="50 100" stroke-linecap="round"></circle>
+											<circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-neutral-800" stroke-width="3" stroke-dasharray="50 100" stroke-linecap="round"></circle>
 											<circle cx="18" cy="18" r="16" fill="none" class="stroke-current text-green-400" stroke-width="1" stroke-dasharray="${Math.max(1, Math.min(halfPercentage, 50))} 100" stroke-linecap="round"></circle>
 										</svg>
 
 										<div class="absolute top-9 start-1/2 transform -translate-x-1/2 text-center">
-											<span class="text-3xl font-bold text-green-300">${halfPercentage >= 50 ? '✓' : total - completed}</span>
-											<span class="text-xs text-green-400 block ${halfPercentage >= 50 ? 'hidden' : ''}">left in ${+year}</span>
+											<span class="text-3xl font-bold text-neutral-300">${halfPercentage >= 50 ? '✓' : total - completed}</span>
+											<span class="text-xs text-neutral-500 block ${halfPercentage >= 50 ? 'hidden' : ''}">left in ${+year}</span>
 										</div>
 									</div>
 								</div>

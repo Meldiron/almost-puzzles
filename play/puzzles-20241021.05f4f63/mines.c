@@ -2475,7 +2475,9 @@ static char *interpret_move(const game_state *from, game_ui *ui,
 	return MOVE_UI_UPDATE;
     }
 
-    if (button == RIGHT_BUTTON) {
+	int vv = from->grid[cy * from->w + cx];
+
+    if (button == RIGHT_BUTTON || (button == LEFT_RELEASE && vv == -2)) {
 	if (cx < 0 || cx >= from->w || cy < 0 || cy >= from->h)
 	    return MOVE_UNUSED;
 
@@ -2513,11 +2515,14 @@ static char *interpret_move(const game_state *from, game_ui *ui,
 	 */
 	if (button == LEFT_RELEASE &&
 	    (from->grid[cy * from->w + cx] == -2 ||
-	     from->grid[cy * from->w + cx] == -3) &&
+	     from->grid[cy * from->w + cx] == -3 ||
+	     from->grid[cy * from->w + cx] == -1) &&
 	    ui->validradius == 0) {
 	    /* Check if you've killed yourself. */
 	    if (from->layout->mines && from->layout->mines[cy * from->w + cx])
 		ui->deaths++;
+
+		from->grid[cy * from->w + cx] = -2;
 
 	    sprintf(buf, "O%d,%d", cx, cy);
 	    return dupstr(buf);
