@@ -1311,11 +1311,11 @@ static char *interpret_move(const game_state *state, game_ui *ui,
         if (button == LEFT_BUTTON) {
             ui->drag = LEFT_DRAG;
             ui->release = LEFT_RELEASE;
-            ui->state = (currstate + 2) % 3; /* FULL -> EMPTY -> UNKNOWN */
+            ui->state = (currstate + 1) % 3; /* EMPTY -> FULL -> UNKNOWN */
         } else if (button == RIGHT_BUTTON) {
             ui->drag = RIGHT_DRAG;
             ui->release = RIGHT_RELEASE;
-            ui->state = (currstate + 1) % 3; /* EMPTY -> FULL -> UNKNOWN */
+            ui->state = (currstate + 2) % 3; /* FULL -> EMPTY -> UNKNOWN */
         } else /* if (button == MIDDLE_BUTTON) */ {
             ui->drag = MIDDLE_DRAG;
             ui->release = MIDDLE_RELEASE;

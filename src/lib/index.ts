@@ -120,11 +120,11 @@ export const Games = {
 			},
 			normal: {
 				name: 'Normal',
-				config: '8x8n10'
+				config: '7x7n10'
 			},
 			hard: {
 				name: 'Hard',
-				config: '10x10n15'
+				config: '8x8n15'
 			}
 		}
 	},
@@ -134,15 +134,15 @@ export const Games = {
 		modes: {
 			easy: {
 				name: 'Easy',
-				config: '5x5'
+				config: '4x4'
 			},
 			normal: {
 				name: 'Normal',
-				config: '7x7'
+				config: '5x5'
 			},
 			hard: {
 				name: 'Hard',
-				config: '9x9'
+				config: '6x6'
 			}
 		}
 	},
@@ -157,10 +157,6 @@ export const Games = {
 			normal: {
 				name: 'Normal',
 				config: '4x4c'
-			},
-			hard: {
-				name: 'Hard',
-				config: '5x5c'
 			}
 		}
 	},
@@ -174,11 +170,11 @@ export const Games = {
 			},
 			normal: {
 				name: 'Normal',
-				config: '6x6'
+				config: '5x5'
 			},
 			hard: {
 				name: 'Hard',
-				config: '8x8'
+				config: '6x6'
 			}
 		}
 	},
@@ -193,10 +189,6 @@ export const Games = {
 			normal: {
 				name: 'Normal',
 				config: '5x5'
-			},
-			hard: {
-				name: 'Hard',
-				config: '6x6'
 			}
 		}
 	},
@@ -244,10 +236,6 @@ export const Games = {
 			normal: {
 				name: 'Normal',
 				config: '2x3adb'
-			},
-			hard: {
-				name: 'Hard',
-				config: '3x3adb'
 			}
 		}
 	},
@@ -258,15 +246,11 @@ export const Games = {
 		modes: {
 			easy: {
 				name: 'Easy',
-				config: '4de'
+				config: '3de'
 			},
 			normal: {
 				name: 'Normal',
-				config: '5de'
-			},
-			hard: {
-				name: 'Hard',
-				config: '6de'
+				config: '4de'
 			}
 		}
 	},
