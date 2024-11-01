@@ -61,8 +61,8 @@ enum {
 
 enum cell_state {
     STATE_UNMARKED = 0,
-    STATE_MARKED = 1,
-    STATE_BLANK = 2,
+    STATE_BLANK = 1,
+    STATE_MARKED = 2,
     STATE_SOLVED = 4,
     STATE_ERROR = 8,
     STATE_UNMARKED_ERROR = STATE_ERROR | STATE_UNMARKED,

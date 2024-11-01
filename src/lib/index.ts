@@ -38,7 +38,7 @@ export const Games = {
 		}
 	},
 	filling: {
-		keys: '1234567890',
+		keys: ['12345', '67890'],
 		name: 'Filling',
 		defaultMode: 'easy',
 		modes: {
@@ -120,11 +120,11 @@ export const Games = {
 			},
 			normal: {
 				name: 'Normal',
-				config: '9x9n15'
+				config: '8x8n10'
 			},
 			hard: {
 				name: 'Hard',
-				config: '13x13n25'
+				config: '10x10n15'
 			}
 		}
 	},
@@ -233,7 +233,7 @@ export const Games = {
 		}
 	},
 	solo: {
-		keys: '1234567890',
+		keys: ['12345', '67890'],
 		name: 'Solo',
 		defaultMode: 'easy',
 		modes: {
@@ -252,7 +252,7 @@ export const Games = {
 		}
 	},
 	unequal: {
-		keys: '123450',
+		keys: ['123450'],
 		name: 'Unequal',
 		defaultMode: 'easy',
 		modes: {
@@ -267,6 +267,60 @@ export const Games = {
 			hard: {
 				name: 'Hard',
 				config: '6de'
+			}
+		}
+	},
+	rect: {
+		name: 'Rectangle',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '5x5'
+			},
+			normal: {
+				name: 'Normal',
+				config: '6x6'
+			},
+			hard: {
+				name: 'Hard',
+				config: '7x7'
+			}
+		}
+	},
+	range: {
+		name: 'Range',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '5x5'
+			},
+			normal: {
+				name: 'Normal',
+				config: '6x6'
+			},
+			hard: {
+				name: 'Hard',
+				config: '7x7'
+			}
+		}
+	},
+	singles: {
+		name: 'Singles',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '3x3de'
+			},
+			normal: {
+				name: 'Normal',
+				config: '4x4de'
+			},
+			hard: {
+				name: 'Hard',
+				config: '5x5de'
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-GAMES="mines mines-kaios-extras net net-kaios-extras ascent ascent-kaios-extras boats boats-kaios-extras inertia inertia-kaios-extras filling filling-kaios-extras lightup lightup-kaios-extras loopy loopy-kaios-extras flip flip-kaios-extras mosaic mosaic-kaios-extras pattern pattern-kaios-extras tents tents-kaios-extras unruly unruly-kaios-extras solo solo-kaios-extras unequal unequal-kaios-extras"
+GAMES="mines mines-kaios-extras net net-kaios-extras ascent ascent-kaios-extras boats boats-kaios-extras inertia inertia-kaios-extras filling filling-kaios-extras lightup lightup-kaios-extras loopy loopy-kaios-extras flip flip-kaios-extras mosaic mosaic-kaios-extras pattern pattern-kaios-extras tents tents-kaios-extras unruly unruly-kaios-extras solo solo-kaios-extras unequal unequal-kaios-extras rect rect-kaios-extras range range-kaios-extras singles singles-kaios-extras"
 
 # apt update && apt install -y halibut
 CMD="rm -rf build && mkdir -p build && cd build && emcmake cmake /source/puzzles-20241021.05f4f63 && cmake --build . --target $GAMES"

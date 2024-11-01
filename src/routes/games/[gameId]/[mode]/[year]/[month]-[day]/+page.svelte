@@ -105,12 +105,14 @@
 </div>
 
 {#if data.game.keys}
-	<div class="flex mt-3 w-full max-w-[600px] mx-auto gap-2">
-		{#each data.game.keys.split('') as buttonKey}
-			<button
-				on:click={() => sendButton(buttonKey)}
-				class="text-2xl font-light bg-white w-full rounded-lg p-3">{buttonKey}</button
-			>
-		{/each}
-	</div>
+	{#each data.game.keys as keyMap}
+		<div class="flex mt-3 w-full max-w-[600px] mx-auto gap-2">
+			{#each keyMap.split('') as buttonKey}
+				<button
+					on:click={() => sendButton(buttonKey)}
+					class="text-2xl font-light bg-white w-full rounded-lg p-3">{buttonKey}</button
+				>
+			{/each}
+		</div>
+	{/each}
 {/if}
