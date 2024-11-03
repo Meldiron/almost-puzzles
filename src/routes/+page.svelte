@@ -10,6 +10,30 @@
 		await Backend.logout();
 		await invalidateAll();
 	}
+
+	let totalDaily = 0;
+	let finishedDaily = 0;
+
+	for(const gameId of Object.keys(Games)) {
+		const game = Games[gameId];
+
+		for(const mode of Object.keys(game.modes)) {
+			const key = `${gameId}-${mode}`;
+			if(data.todayFinishes[key]) {
+				finishedDaily++;
+			}
+
+			totalDaily++;
+		}
+	}
+
+	function getPercentage(current: number, total: number) {
+		if (current >= total) {
+			return 100;
+		}
+
+		return Math.floor((current / total) * 100);
+	}
 </script>
 
 <div
@@ -23,6 +47,22 @@
 	<h1 class="mt-12 mb-12 text-neutral-50 text-3xl text-center font-light font-serif">
 		Gamified Simon Tatham's Puzzles
 	</h1>
+
+	<div class={`p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}>
+		<div class="flex justify-between mb-3">
+			<span class="text-base font-medium text-white">Daily levels finished</span>
+			<span
+				class={`transform translate-y-2 text-sm font-medium font-light ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'text-green-300' : 'text-green-300'}`}
+				>{getPercentage(finishedDaily, totalDaily)}%</span
+			>
+		</div>
+		<div class="w-full bg-neutral-700 rounded-full h-2.5">
+			<div
+				class={`h-2.5 rounded-full ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-500' : 'bg-green-500'}`}
+				style={`width: ${getPercentage(finishedDaily, totalDaily)}%`}
+			></div>
+		</div>
+	</div>
 
 	<div class="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4">
 		{#each Object.keys(Games) as gameId}

@@ -48,23 +48,27 @@
 					{/each}
 				</div>
 				<div class="mb-12 flex items-center justify-center gap-3">
-					<a
-						on:click={() => {
-							invalidateAll();
-							updated = Date.now();
-						}}
-						href={`/games/${data.gameId}/${data.mode}/${data.year - 1}`}
-						class="text-md text-neutral-100 underline">{data.year - 1}</a
-					>
+					{#if data.year - 1 >= 2014}
+						<a
+							on:click={() => {
+								invalidateAll();
+								updated = Date.now();
+							}}
+							href={`/games/${data.gameId}/${data.mode}/${data.year - 1}`}
+							class="text-md text-neutral-100 underline">{data.year - 1}</a
+						>
+					{/if}
 					<p class="text-md text-neutral-800 bg-neutral-300 rounded-full px-3 py-1">{data.year}</p>
-					<a
-						on:click={() => {
-							invalidateAll();
-							updated = Date.now();
-						}}
-						href={`/games/${data.gameId}/${data.mode}/${data.year + 1}`}
-						class="text-md text-neutral-100 underline">{data.year + 1}</a
-					>
+					{#if data.year + 1 <= new Date().getFullYear()}
+						<a
+							on:click={() => {
+								invalidateAll();
+								updated = Date.now();
+							}}
+							href={`/games/${data.gameId}/${data.mode}/${data.year + 1}`}
+							class="text-md text-neutral-100 underline">{data.year + 1}</a
+						>
+					{/if}
 				</div>
 			</div>
 			<div class="max-w-[500px] w-full" id="board">

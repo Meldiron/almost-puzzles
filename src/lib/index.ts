@@ -156,6 +156,10 @@ export const Games = {
 			},
 			normal: {
 				name: 'Normal',
+				config: '3x4c'
+			},
+			hard: {
+				name: 'Hard',
 				config: '4x4c'
 			}
 		}
@@ -189,6 +193,10 @@ export const Games = {
 			normal: {
 				name: 'Normal',
 				config: '5x5'
+			},
+			hard: {
+				name: 'Hard',
+				config: '6x6'
 			}
 		}
 	},
@@ -212,11 +220,15 @@ export const Games = {
 	},
 	unruly: {
 		name: 'Unruly',
-		defaultMode: 'normal',
+		defaultMode: 'easy',
 		modes: {
+			easy: {
+				name: 'Easy',
+				config: '6x6dt'
+			},
 			normal: {
 				name: 'Normal',
-				config: '6x6dt'
+				config: '6x8dt'
 			},
 			hard: {
 				name: 'Hard',
@@ -235,6 +247,10 @@ export const Games = {
 			},
 			normal: {
 				name: 'Normal',
+				config: '2x2ka'
+			},
+			hard: {
+				name: 'Hard',
 				config: '2x3adb'
 			}
 		}
@@ -251,6 +267,10 @@ export const Games = {
 			normal: {
 				name: 'Normal',
 				config: '4de'
+			},
+			hard: {
+				name: 'Hard',
+				config: '5adt'
 			}
 		}
 	},
@@ -278,15 +298,15 @@ export const Games = {
 		modes: {
 			easy: {
 				name: 'Easy',
-				config: '5x5'
+				config: '4x4'
 			},
 			normal: {
 				name: 'Normal',
-				config: '6x6'
+				config: '5x5'
 			},
 			hard: {
 				name: 'Hard',
-				config: '7x7'
+				config: '6x6'
 			}
 		}
 	},
@@ -305,6 +325,42 @@ export const Games = {
 			hard: {
 				name: 'Hard',
 				config: '5x5de'
+			}
+		}
+	},
+	tracks: {
+		name: 'Tracks',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '4x4de'
+			},
+			normal: {
+				name: 'Normal',
+				config: '4x5de'
+			},
+			hard: {
+				name: 'Hard',
+				config: '5x5de'
+			}
+		}
+	},
+	sixteen: {
+		name: 'Sixteen',
+		defaultMode: 'easy',
+		modes: {
+			easy: {
+				name: 'Easy',
+				config: '3x3'
+			},
+			normal: {
+				name: 'Normal',
+				config: '3x4'
+			},
+			hard: {
+				name: 'Hard',
+				config: '4x4'
 			}
 		}
 	}

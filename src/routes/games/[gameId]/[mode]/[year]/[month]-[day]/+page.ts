@@ -8,6 +8,13 @@ export const load: PageLoad = async ({ params, parent }) => {
 		redirect(307, `/games/${params.gameId}/${params.mode}/${params.year}`);
 	}
 
+	const currentYear = new Date().getFullYear();
+	if(+params.year < 2014) {
+		redirect(307, `/games/${params.gameId}/${params.mode}/2014`);
+	} else if(+params.year > currentYear) { 
+		redirect(307, `/games/${params.gameId}/${params.mode}/${currentYear}`);
+	}
+
 	const data = await parent();
 
 	const finishes = await Backend.getFinishes(

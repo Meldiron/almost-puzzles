@@ -8,6 +8,13 @@ export const load: PageLoad = async ({ params, parent }) => {
 		redirect(307, `/profiles/${data.user.$id}`);
 	}
 
+	const currentYear = new Date().getFullYear();
+	if(+params.year < 2014) {
+		redirect(307, `/profiles/${params.profileId}/2014`);
+	} else if(+params.year > currentYear) { 
+		redirect(307, `/profiles/${params.profileId}/${currentYear}`);
+	}
+
 	const finishes = await Backend.getAllFinishes(params.profileId ?? '');
 
 	return {

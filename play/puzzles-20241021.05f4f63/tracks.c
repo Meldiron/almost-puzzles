@@ -2215,6 +2215,30 @@ static char *square_flip_str(const game_state *state, int x, int y, bool notrack
     return dupstr(buf);
 }
 
+static char *mobile_square_flip_str(const game_state *state, int x, int y, char *buf) {
+    unsigned f = state->sflags[y*state->p.w+x];
+
+    /**
+        T = set track
+        t = clear track
+        N = notrack
+        n = clearn notrack
+    */
+
+    if(f & E_NOTRACK) {
+        // X, put Empty
+        sprintf(buf, "nS%d,%d", x, y);
+        return dupstr(buf);
+    } else if(f & E_TRACK) {
+        // Track, put X
+        sprintf(buf, "tS%d,%d;NS%d,%d", x, y, x, y);
+        return dupstr(buf);
+    } else { // Empty, put Track
+        sprintf(buf, "TS%d,%d", x, y);
+        return dupstr(buf);
+    }
+}
+
 #define SIGN(x) ((x<0) ? -1 : (x>0))
 
 static game_state *copy_and_apply_drag(const game_state *state, const game_ui *ui)
@@ -2325,9 +2349,7 @@ static char *interpret_move(const game_state *state, game_ui *ui,
                 return MOVE_UI_UPDATE;
 
             if (max(abs(x-cx),abs(y-cy)) < TILE_SIZE/4) {
-                if (ui_can_flip_square(state, gx, gy, button == RIGHT_RELEASE))
-                    return square_flip_str(state, gx, gy, button == RIGHT_RELEASE, tmpbuf);
-                return MOVE_UI_UPDATE;
+                return mobile_square_flip_str(state, gx, gy, tmpbuf);
             } else {
                 if (abs(x-cx) < abs(y-cy)) {
                     /* Closest to top/bottom edge. */
