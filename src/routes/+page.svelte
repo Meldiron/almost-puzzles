@@ -11,6 +11,8 @@
 		await invalidateAll();
 	}
 
+	const currentMonthVerbose = new Date().toLocaleString('default', { month: 'long' });
+
 	let totalDaily = 0;
 	let finishedDaily = 0;
 
@@ -48,7 +50,16 @@
 		Gamified Simon Tatham's Puzzles
 	</h1>
 
-	<div class={`p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}>
+<div class="grid grid-cols-12 gap-4">
+	<div class={`col-span-6 p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}>
+		<div class="flex justify-between mb-3">
+			<div class="flex items-center w-full justify-between gap-3">
+				<span class="text-base font-medium text-white">Daily calendar</span>
+				<span class="text-base text-neutral-300">{currentMonthVerbose}</span>
+			</div>
+		</div>
+	</div>
+	<div class={`col-span-6 p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}>
 		<div class="flex justify-between mb-3">
 			<span class="text-base font-medium text-white">Daily levels finished</span>
 			<span
@@ -63,6 +74,7 @@
 			></div>
 		</div>
 	</div>
+</div>
 
 	<div class="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4">
 		{#each Object.keys(Games) as gameId}
