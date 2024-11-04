@@ -56,15 +56,25 @@ export const Backend = {
 		day: number
 	) {
 		const current = await this.getFinishes(userId, gameId, mode, year);
+		
 		const key = `${month}-${day}`;
-		if (current.levels.includes(key)) {
-			return current;
+		if (!current.levels.includes(key)) {
+			current.levels.push(key);
 		}
 
-		current.levels.push(key);
+		if(
+			year === new Date().getFullYear() &&
+			month === new Date().getMonth() + 1 &&
+			day === new Date().getDate()
+		) {
+			if (!current.levelsSameDay.includes(key)) {
+				current.levelsSameDay.push(key);
+			}
+		}
 
 		return await databases.updateDocument('main', 'finishes', current.$id, {
-			levels: current.levels
+			levels: current.levels,
+			levelsSameDay: current.levelsSameDay
 		});
 	}
 };
