@@ -6,6 +6,8 @@
 
 	export let data: PageData;
 
+	let calendarEl;
+
 	async function logout() {
 		await Backend.logout();
 		await invalidateAll();
@@ -50,7 +52,7 @@
 		Gamified Simon Tatham's Puzzles
 	</h1>
 
-<div class="grid grid-cols-6 sm:grid-cols-12 gap-4">
+<div class="grid grid-cols-6 sm:grid-cols-12 gap-4" bind:this={calendarEl}>
 	<div class={`col-span-6 p-3 border rounded-2xl bg-neutral-800 border-neutral-600`}>
 		<div class="flex justify-between mb-3">
 			<div class="flex items-center w-full justify-between gap-3">
@@ -60,20 +62,21 @@
 		</div>
 		<p class="text-neutral-500">Coming soon</p>
 	</div>
-	<div class={`col-span-6 p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}>
-		<div class="flex justify-between mb-3">
-			<span class="text-base font-medium text-white">Daily levels finished</span>
-			<span
-				class={`transform translate-y-2 text-sm font-medium font-light ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'text-green-300' : 'text-green-300'}`}
-				>{getPercentage(finishedDaily, totalDaily)}%</span
-			>
-		</div>
-		<div class="w-full bg-neutral-700 rounded-full h-2.5">
-			<div
-				class={`h-2.5 rounded-full ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-500' : 'bg-green-500'}`}
-				style={`width: ${getPercentage(finishedDaily, totalDaily)}%`}
-			></div>
-		</div>
+</div>
+
+<div style={`margin-top: -${calendarEl ? calendarEl.clientHeight : '0'}px;`} class={`max-sm:!mt-3 z-[5] ml-auto w-full sm:w-[50%] sticky top-3 p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}>
+	<div class="flex justify-between mb-3">
+		<span class="text-base font-medium text-white">Daily levels finished</span>
+		<span
+			class={`transform translate-y-2 text-sm font-medium font-light ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'text-green-300' : 'text-green-300'}`}
+			>{getPercentage(finishedDaily, totalDaily)}%</span
+		>
+	</div>
+	<div class="w-full bg-neutral-700 rounded-full h-2.5">
+		<div
+			class={`h-2.5 rounded-full ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-500' : 'bg-green-500'}`}
+			style={`width: ${getPercentage(finishedDaily, totalDaily)}%`}
+		></div>
 	</div>
 </div>
 
