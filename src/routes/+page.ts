@@ -34,12 +34,50 @@ export const load: PageLoad = async ({ params, parent }) => {
 		}
 	}
 
+	const calendar: any = {};
+
+	const daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+	let totalDailyLevels = 0;
+	for (const gameId of Object.keys(Games)) {
+		const game = Games[gameId];
+		totalDailyLevels += Object.keys(game.modes).length;
+	}
+
+	for (let year = 2014; year <= todayYear; year++) {
+		for (let month = 0; month < 12; month++) {
+			if (year === todayYear && month > todayMonth - 1) {
+				continue;
+			}
+
+			const days: any[] = [];
+
+			for (let day = 1; day <= daysInMonths[month]; day++) {
+				const finishesOnDay = finishes.filter(
+					(finish) => finish.year === year && finish.levels.includes(`${month + 1}-${day}`)
+				).length;
+				const finishesOnSameDay = finishes.filter(
+					(finish) => finish.year === year && finish.levelsSameDay.includes(`${month + 1}-${day}`)
+				).length;
+
+				days.push({
+					finishesPercentage: Math.round((finishesOnDay / totalDailyLevels) * 100),
+					finishesSameDayPercentage: Math.round((finishesOnSameDay / totalDailyLevels) * 100)
+				});
+			}
+
+			calendar[`${year}-${month + 1}`] = days;
+		}
+	}
+
 	return {
 		todayFinishes,
 
 		todayYear,
 		todayMonth,
 		todayDay,
-		todayPath
+		todayPath,
+
+		calendar
 	};
 };

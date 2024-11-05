@@ -56,13 +56,13 @@ export const Backend = {
 		day: number
 	) {
 		const current = await this.getFinishes(userId, gameId, mode, year);
-		
+
 		const key = `${month}-${day}`;
 		if (!current.levels.includes(key)) {
 			current.levels.push(key);
 		}
 
-		if(
+		if (
 			year === new Date().getFullYear() &&
 			month === new Date().getMonth() + 1 &&
 			day === new Date().getDate()

@@ -3,9 +3,62 @@
 	import type { PageData } from './$types';
 	import { Backend } from '$lib/backend';
 	import { invalidateAll } from '$app/navigation';
+	import { onMount, tick } from 'svelte';
 
 	export let data: PageData;
 
+	const monthNames = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
+
+	let calendarMonth = new Date().getMonth();
+	let calendarYear = new Date().getFullYear();
+	let currentCalendar = data.calendar[`${calendarYear}-${calendarMonth + 1}`];
+
+	async function nextCalendar() {
+		calendarMonth++;
+
+		if (calendarMonth > 11) {
+			calendarYear++;
+			calendarMonth = 0;
+		}
+
+		currentCalendar = data.calendar[`${calendarYear}-${calendarMonth + 1}`] ?? [];
+
+		await tick();
+		calendarHeight = calendarEl ? calendarEl.clientHeight : 0;
+	}
+
+	onMount(() => {
+		calendarHeight = calendarEl ? calendarEl.clientHeight : 0;
+	});
+
+	async function previousCalendar() {
+		calendarMonth--;
+
+		if (calendarMonth < 0) {
+			calendarYear--;
+			calendarMonth = 11;
+		}
+
+		currentCalendar = data.calendar[`${calendarYear}-${calendarMonth + 1}`] ?? [];
+
+		await tick();
+		calendarHeight = calendarEl ? calendarEl.clientHeight : 0;
+	}
+
+	let calendarHeight = 0;
 	let calendarEl;
 
 	async function logout() {
@@ -13,17 +66,15 @@
 		await invalidateAll();
 	}
 
-	const currentMonthVerbose = new Date().toLocaleString('default', { month: 'long' });
-
 	let totalDaily = 0;
 	let finishedDaily = 0;
 
-	for(const gameId of Object.keys(Games)) {
+	for (const gameId of Object.keys(Games)) {
 		const game = Games[gameId];
 
-		for(const mode of Object.keys(game.modes)) {
+		for (const mode of Object.keys(game.modes)) {
 			const key = `${gameId}-${mode}`;
-			if(data.todayFinishes[key]) {
+			if (data.todayFinishes[key]) {
 				finishedDaily++;
 			}
 
@@ -52,35 +103,148 @@
 		Gamified Simon Tatham's Puzzles
 	</h1>
 
-<div class="grid grid-cols-6 sm:grid-cols-12 gap-4" bind:this={calendarEl}>
-	<div class={`col-span-6 p-3 border rounded-2xl bg-neutral-800 border-neutral-600`}>
-		<div class="flex justify-between mb-3">
-			<div class="flex items-center w-full justify-between gap-3">
-				<span class="text-base font-medium text-white">Daily calendar</span>
-				<span class="text-base text-neutral-300">{currentMonthVerbose}</span>
+	<div class="grid grid-cols-6 sm:grid-cols-12 gap-4" bind:this={calendarEl}>
+		<div class={`col-span-6 p-3 border rounded-2xl bg-neutral-800 border-neutral-600`}>
+			<div class="flex items-center justify-between mb-3">
+				<div>
+					<button
+						on:click={previousCalendar}
+						class="text-neutral-200 bg-neutral-700 rounded-md py-4 px-2"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="size-6"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M15.75 19.5 8.25 12l7.5-7.5"
+							/>
+						</svg>
+					</button>
+				</div>
+				<div class="flex items-center flex-col w-full justify-center gap-1">
+					<span class="text-base font-medium text-white">Daily calendar</span>
+					<span class="text-base text-neutral-400">{monthNames[calendarMonth]} {calendarYear}</span>
+				</div>
+
+				<div>
+					<button
+						on:click={nextCalendar}
+						class="text-neutral-200 bg-neutral-700 rounded-md py-4 px-2"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="size-6"
+						>
+							<path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+						</svg>
+					</button>
+				</div>
+			</div>
+			{#if currentCalendar.length === 0}
+				<p class="mt-6 text-center text-neutral-200">This month is not available.</p>
+			{/if}
+			<div class="grid grid-cols-7 gap-4 py-3">
+				{#each currentCalendar as calendarDay, index}
+					<div
+						class="col-span-1 flex items-center justify-center text-center text-neutral-300 relative"
+					>
+						<div class="relative w-full">
+							<div class="absolute inset-0 z-[2] flex items-center justify-center text-center">
+								<p>{index + 1}</p>
+							</div>
+							<svg
+								class="size-full -rotate-90"
+								viewBox="0 0 36 36"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<!-- Background Fill -->
+								<circle
+									cx="18"
+									cy="18"
+									r="16"
+									fill="currentColor"
+									class={`${calendarDay.finishesSameDayPercentage === 100 ? 'text-green-900' : calendarDay.finishesPercentage === 100 ? 'text-blue-900' : 'text-neutral-800'}`}
+								></circle>
+
+								<!-- Background -->
+								<circle
+									cx="18"
+									cy="18"
+									r="16"
+									fill="none"
+									class="stroke-current text-neutral-700"
+									stroke-width="2"
+								></circle>
+								<!-- Any day -->
+								{#if calendarDay.finishesPercentage > 0}
+									<circle
+										cx="18"
+										cy="18"
+										r="16"
+										fill="none"
+										class="stroke-current text-blue-500"
+										stroke-width="2"
+										stroke-dasharray="100"
+										stroke-dashoffset={100 - calendarDay.finishesPercentage}
+										stroke-linecap="round"
+									></circle>
+								{/if}
+								<!-- Same day -->
+
+								{#if calendarDay.finishesSameDayPercentage > 0}
+									<circle
+										cx="18"
+										cy="18"
+										r="16"
+										fill="none"
+										class="stroke-current text-green-500"
+										stroke-width="2"
+										stroke-dasharray="100"
+										stroke-dashoffset={100 - calendarDay.finishesSameDayPercentage}
+										stroke-linecap="round"
+									></circle>
+								{/if}
+							</svg>
+						</div>
+					</div>
+				{/each}
 			</div>
 		</div>
-		<p class="text-neutral-500">Coming soon</p>
 	</div>
-</div>
 
-<div style={`margin-top: -${calendarEl ? calendarEl.clientHeight : '0'}px;`} class={`max-sm:!mt-3 z-[5] ml-auto w-full sm:w-[50%] sticky top-3 p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}>
-	<div class="flex justify-between mb-3">
-		<span class="text-base font-medium text-white">Daily levels finished</span>
-		<span
-			class={`transform translate-y-2 text-sm font-medium font-light ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'text-green-300' : 'text-green-300'}`}
-			>{getPercentage(finishedDaily, totalDaily)}%</span
-		>
+	<div
+		style={`margin-top: -${calendarHeight}px;`}
+		class={`max-sm:!mt-3 z-[5] ml-auto w-full sm:w-[50%] sticky top-3 p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}
+	>
+		<div class="flex justify-between mb-3">
+			<span class="text-base font-medium text-white">Daily levels finished</span>
+			<span
+				class={`transform translate-y-2 text-sm font-medium font-light ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'text-green-300' : 'text-green-300'}`}
+				>{getPercentage(finishedDaily, totalDaily)}%</span
+			>
+		</div>
+		<div class="w-full bg-neutral-700 rounded-full h-2.5">
+			<div
+				class={`h-2.5 rounded-full ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-500' : 'bg-green-500'}`}
+				style={`width: ${getPercentage(finishedDaily, totalDaily)}%`}
+			></div>
+		</div>
 	</div>
-	<div class="w-full bg-neutral-700 rounded-full h-2.5">
-		<div
-			class={`h-2.5 rounded-full ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-500' : 'bg-green-500'}`}
-			style={`width: ${getPercentage(finishedDaily, totalDaily)}%`}
-		></div>
-	</div>
-</div>
 
-	<div class="grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4">
+	<div
+		style={`margin-top: ${calendarHeight - 72 + 14}px;`}
+		class="max-sm:!mt-3 grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4"
+	>
 		{#each Object.keys(Games) as gameId}
 			{@const game = Games[gameId]}
 			<a

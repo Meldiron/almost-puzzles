@@ -7,9 +7,9 @@ export const load: PageLoad = async ({ params, parent }) => {
 	const data = await parent();
 
 	const currentYear = new Date().getFullYear();
-	if(+params.year < 2014) {
+	if (+params.year < 2014) {
 		redirect(307, `/games/${params.gameId}/${params.mode}/2014`);
-	} else if(+params.year > currentYear) { 
+	} else if (+params.year > currentYear) {
 		redirect(307, `/games/${params.gameId}/${params.mode}/${currentYear}`);
 	}
 
