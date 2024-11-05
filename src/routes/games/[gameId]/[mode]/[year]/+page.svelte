@@ -17,7 +17,7 @@
 </script>
 
 <div class="bg-neutral-800 mt-3 rounded-xl text-neutral-300 text-sm underline px-4 p-2">
-	<a href="/#{data.gameId}">Main Menu</a>
+	<a href={`/#${data.gameId}`}>Main Menu</a>
 </div>
 
 {#key updated}

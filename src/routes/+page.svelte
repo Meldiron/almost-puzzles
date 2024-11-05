@@ -2,10 +2,25 @@
 	import { Games } from '$lib';
 	import type { PageData } from './$types';
 	import { Backend } from '$lib/backend';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { onMount, tick } from 'svelte';
 
 	export let data: PageData;
+
+	const monthNamesShort = [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec'
+	];
 
 	const monthNames = [
 		'January',
@@ -61,25 +76,13 @@
 	let calendarHeight = 0;
 	let calendarEl;
 
+	function setIssue(day: number) {
+		goto(`/?issue=${calendarYear}-${calendarMonth + 1}-${day}`, { replaceState: true });
+	}
+
 	async function logout() {
 		await Backend.logout();
 		await invalidateAll();
-	}
-
-	let totalDaily = 0;
-	let finishedDaily = 0;
-
-	for (const gameId of Object.keys(Games)) {
-		const game = Games[gameId];
-
-		for (const mode of Object.keys(game.modes)) {
-			const key = `${gameId}-${mode}`;
-			if (data.todayFinishes[key]) {
-				finishedDaily++;
-			}
-
-			totalDaily++;
-		}
 	}
 
 	function getPercentage(current: number, total: number) {
@@ -128,7 +131,7 @@
 					</button>
 				</div>
 				<div class="flex items-center flex-col w-full justify-center gap-1">
-					<span class="text-base font-medium text-white">Daily calendar</span>
+					<span class="text-base font-medium text-white">Puzzle calendar</span>
 					<span class="text-base text-neutral-400">{monthNames[calendarMonth]} {calendarYear}</span>
 				</div>
 
@@ -155,8 +158,9 @@
 			{/if}
 			<div class="grid grid-cols-7 gap-4 py-3">
 				{#each currentCalendar as calendarDay, index}
-					<div
-						class="col-span-1 flex items-center justify-center text-center text-neutral-300 relative"
+					<button
+						on:click={() => setIssue(index + 1)}
+						class="hover:scale-110 transition-all duration-250 transform rounded-full col-span-1 flex items-center justify-center text-center text-neutral-300 relative"
 					>
 						<div class="relative w-full">
 							<div class="absolute inset-0 z-[2] flex items-center justify-center text-center">
@@ -216,35 +220,39 @@
 								{/if}
 							</svg>
 						</div>
-					</div>
+					</button>
 				{/each}
 			</div>
 		</div>
 	</div>
 
+	<h1 class="mt-12 mb-8 text-neutral-50 text-3xl text-center font-light font-serif">
+		Levels on {data.issueDay}
+		{monthNamesShort[data.issueMonth - 1]}
+		{data.issueYear}
+	</h1>
+
 	<div
-		style={`margin-top: -${calendarHeight}px;`}
-		class={`max-sm:!mt-3 z-[5] ml-auto w-full sm:w-[50%] sticky top-3 p-3 border rounded-2xl ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-950 border-green-800' : 'bg-neutral-800 border-neutral-600'}`}
+		class={`mt-0 z-[5] mx-auto w-full max-w-md sticky top-3 p-3 border rounded-2xl ${getPercentage(data.issueFinished, data.issueTotal) >= 100 ? 'bg-neutral-800 border-neutral-600' : 'bg-neutral-800 border-neutral-600'}`}
 	>
 		<div class="flex justify-between mb-3">
-			<span class="text-base font-medium text-white">Daily levels finished</span>
+			<span class="text-base font-medium text-white"
+				>Finishes on {data.issueDay} {monthNamesShort[data.issueMonth - 1]} {data.issueYear}
+			</span>
 			<span
-				class={`transform translate-y-2 text-sm font-medium font-light ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'text-green-300' : 'text-green-300'}`}
-				>{getPercentage(finishedDaily, totalDaily)}%</span
+				class={`transform translate-y-2 text-sm font-medium font-light ${getPercentage(data.issueFinished, data.issueTotal) >= 100 ? 'text-blue-300' : 'text-blue-300'}`}
+				>{getPercentage(data.issueFinished, data.issueTotal)}%</span
 			>
 		</div>
 		<div class="w-full bg-neutral-700 rounded-full h-2.5">
 			<div
-				class={`h-2.5 rounded-full ${getPercentage(finishedDaily, totalDaily) >= 100 ? 'bg-green-500' : 'bg-green-500'}`}
-				style={`width: ${getPercentage(finishedDaily, totalDaily)}%`}
+				class={`h-2.5 rounded-full ${getPercentage(data.issueFinished, data.issueTotal) >= 100 ? 'bg-blue-500' : 'bg-blue-500'}`}
+				style={`width: ${getPercentage(data.issueFinished, data.issueTotal)}%`}
 			></div>
 		</div>
 	</div>
 
-	<div
-		style={`margin-top: ${calendarHeight - 72 + 14}px;`}
-		class="max-sm:!mt-3 grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4"
-	>
+	<div class="mt-3 grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4">
 		{#each Object.keys(Games) as gameId}
 			{@const game = Games[gameId]}
 			<a
@@ -268,7 +276,7 @@
 						<div
 							class="transform -translate-y-1/2 mt-[1px] bg-neutral-800 px-3 text-sm text-neutral-300"
 						>
-							Daily levels
+							Game modes
 						</div>
 					</div>
 				</div>
@@ -278,12 +286,12 @@
 						{@const modeData = game.modes[mode]}
 						<div class="col-span-4">
 							<p class="text-sm text-neutral-400 text-center w-full mb-2">{modeData.name}</p>
-							<a href={`/games/${gameId}/${mode}/${data.todayPath}#game`}>
+							<a href={`/games/${gameId}/${mode}/${data.issuePath}#game`}>
 								<button
-									disabled={data.todayFinishes[`${gameId}-${mode}`]}
-									class={`w-full flex items-center justify-center p-2 rounded-xl ${data.todayFinishes[`${gameId}-${mode}`] ? 'bg-neutral-700 text-neutral-400' : 'bg-green-500 text-white'}`}
+									disabled={data.issueFinishes[`${gameId}-${mode}`]}
+									class={`w-full flex items-center justify-center p-2 rounded-xl ${data.issueFinishes[`${gameId}-${mode}`] ? 'bg-neutral-700 text-neutral-400' : 'bg-green-500 text-white'}`}
 								>
-									{#if data.todayFinishes[`${gameId}-${mode}`]}
+									{#if data.issueFinishes[`${gameId}-${mode}`]}
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											fill="none"

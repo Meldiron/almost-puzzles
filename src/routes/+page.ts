@@ -2,35 +2,45 @@ import { Games } from '$lib';
 import { Backend } from '$lib/backend';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ params, parent }) => {
+export const load: PageLoad = async ({ url, parent }) => {
 	const todayYear = new Date().getFullYear();
 	const todayMonth = new Date().getMonth() + 1;
 	const todayDay = new Date().getDate();
-	const todayPath = `${todayYear}/${todayMonth}-${todayDay}`;
 
 	const data = await parent();
 
 	const finishes = await Backend.getAllFinishes(data.user.$id);
 
-	const todayFinishes: any = {};
+	let issueYear = todayYear;
+	let issueMonth = todayMonth;
+	let issueDay = todayDay;
+
+	let issueDate = url.searchParams.get('issue');
+	if (issueDate) {
+		issueYear = parseInt(issueDate.split('-')[0]);
+		issueMonth = parseInt(issueDate.split('-')[1]);
+		issueDay = parseInt(issueDate.split('-')[2]);
+	}
+
+	const issuePath = `${issueYear}/${issueMonth}-${issueDay}`;
+
+	const issueFinishes: any = {};
 
 	for (const gameId of Object.keys(Games)) {
 		const game = Games[gameId];
 
 		for (const mode of Object.keys(game.modes)) {
-			const modeData = game.modes[mode];
-
 			let isFinished = false;
 			for (const finish of finishes) {
-				if (finish.gameId === gameId && finish.mode === mode && finish.year === todayYear) {
-					if (finish.levels.includes(`${todayMonth}-${todayDay}`)) {
+				if (finish.gameId === gameId && finish.mode === mode && finish.year === issueYear) {
+					if (finish.levels.includes(`${issueMonth}-${issueDay}`)) {
 						isFinished = true;
 						break;
 					}
 				}
 			}
 
-			todayFinishes[`${gameId}-${mode}`] = isFinished;
+			issueFinishes[`${gameId}-${mode}`] = isFinished;
 		}
 	}
 
@@ -70,14 +80,31 @@ export const load: PageLoad = async ({ params, parent }) => {
 		}
 	}
 
+	let issueTotal = 0;
+	let issueFinished = 0;
+	for (const gameId of Object.keys(Games)) {
+		const game = Games[gameId];
+
+		for (const mode of Object.keys(game.modes)) {
+			const key = `${gameId}-${mode}`;
+			if (issueFinishes[key]) {
+				issueFinished++;
+			}
+
+			issueTotal++;
+		}
+	}
+
 	return {
-		todayFinishes,
+		issuePath,
 
-		todayYear,
-		todayMonth,
-		todayDay,
-		todayPath,
+		calendar,
 
-		calendar
+		issueYear,
+		issueMonth,
+		issueDay,
+		issueFinishes,
+		issueFinished,
+		issueTotal
 	};
 };
