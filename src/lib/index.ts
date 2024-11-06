@@ -1,6 +1,18 @@
 export const playUrl = 'https://simon-tatham-puzzles.surge.sh';
 
-export const Games = {
+export type Mode = {
+	name: string;
+	config: string;
+};
+
+export type Game = {
+	keys?: string[];
+	name: string;
+	defaultMode: string;
+	modes: { [key: string]: Mode };
+};
+
+export const Games: { [key: string]: Game } = {
 	ascent: {
 		name: 'Ascent',
 		defaultMode: 'easy',

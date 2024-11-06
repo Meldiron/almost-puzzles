@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { playUrl } from '$lib';
-	import type { PageData } from '../../../../[gameId]-[mode]-[year]/[year]/[date]/$types';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 
 	function sendButton(button: string) {
-		document.getElementById('game').contentWindow.postMessage(
+		const game = document.getElementById('game') as HTMLIFrameElement;
+		game?.contentWindow?.postMessage(
 			{
 				type: 'gstp:keypress',
 				data: button
@@ -15,7 +16,8 @@
 	}
 
 	function undo() {
-		document.getElementById('game').contentWindow.postMessage(
+		const game = document.getElementById('game') as HTMLIFrameElement;
+		game?.contentWindow?.postMessage(
 			{
 				type: 'gstp:command',
 				data: 7
@@ -25,7 +27,8 @@
 	}
 
 	function redo() {
-		document.getElementById('game').contentWindow.postMessage(
+		const game = document.getElementById('game') as HTMLIFrameElement;
+		game?.contentWindow?.postMessage(
 			{
 				type: 'gstp:command',
 				data: 8
@@ -35,7 +38,8 @@
 	}
 
 	function restart() {
-		document.getElementById('game').contentWindow.postMessage(
+		const game = document.getElementById('game') as HTMLIFrameElement;
+		game?.contentWindow?.postMessage(
 			{
 				type: 'gstp:command',
 				data: 6

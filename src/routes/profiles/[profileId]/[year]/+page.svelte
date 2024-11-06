@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { Games, isLeapYear } from '$lib';
-	import type { PageData } from '../$types';
+	import { Games, isLeapYear, type Mode } from '$lib';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 
@@ -14,7 +14,7 @@
 	}
 
 	function getAllExistingModes() {
-		const modes = [];
+		const modes: { [key: string]: Mode } = {};
 
 		for (const game of Object.keys(Games)) {
 			for (const mode of Object.keys(Games[game].modes)) {
@@ -158,7 +158,7 @@
 </script>
 
 <div class="bg-neutral-800 mt-3 rounded-xl text-neutral-300 text-sm underline px-4 p-2">
-	<a href="/#{data.gameId}">Main Menu</a>
+	<a href="/">Main Menu</a>
 </div>
 
 {#key updated}
@@ -242,7 +242,7 @@
 		</div>
 	</div>
 
-	{#each getSortedGames(data.finishes) as gameId}
+	{#each getSortedGames() as gameId}
 		{@const game = Games[gameId]}
 		<div
 			id={gameId}

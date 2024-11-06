@@ -82,7 +82,7 @@
 	}
 
 	let calendarHeight = 0;
-	let calendarEl;
+	let calendarEl: HTMLDivElement;
 
 	async function setIssue(day: number) {
 		await goto(`/?issue=${calendarYear}-${calendarMonth + 1}-${day}`, { replaceState: true });
