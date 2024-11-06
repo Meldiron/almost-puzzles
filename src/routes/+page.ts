@@ -16,10 +16,26 @@ export const load: PageLoad = async ({ url, parent }) => {
 	let issueDay = todayDay;
 
 	let issueDate = url.searchParams.get('issue');
+
 	if (issueDate) {
 		issueYear = parseInt(issueDate.split('-')[0]);
 		issueMonth = parseInt(issueDate.split('-')[1]);
 		issueDay = parseInt(issueDate.split('-')[2]);
+
+		if (issueYear < 2014) {
+			issueYear = todayYear;
+			issueMonth = todayMonth;
+			issueDay = todayDay;
+		} else if (issueYear > todayYear) {
+			issueYear = todayYear;
+			issueMonth = todayMonth;
+			issueDay = todayDay;
+		} else if (issueYear === todayYear && issueMonth > todayMonth) {
+			issueMonth = todayMonth;
+			issueDay = todayDay;
+		} else if (issueYear === todayYear && issueMonth === todayMonth && issueDay > todayDay) {
+			issueDay = todayDay;
+		}
 	}
 
 	const issuePath = `${issueYear}/${issueMonth}-${issueDay}`;
@@ -70,7 +86,15 @@ export const load: PageLoad = async ({ url, parent }) => {
 					(finish) => finish.year === year && finish.levelsSameDay.includes(`${month + 1}-${day}`)
 				).length;
 
+				const isSelected = year === issueYear && month === issueMonth - 1 && day === issueDay;
+				const isFuture =
+					year > todayYear ||
+					(year === todayYear && month > todayMonth - 1) ||
+					(year === todayYear && month === todayMonth - 1 && day > todayDay);
+
 				days.push({
+					isSelected,
+					isFuture,
 					finishesPercentage: Math.round((finishesOnDay / totalDailyLevels) * 100),
 					finishesSameDayPercentage: Math.round((finishesOnSameDay / totalDailyLevels) * 100)
 				});

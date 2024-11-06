@@ -2,7 +2,7 @@
 	import { Games } from '$lib';
 	import type { PageData } from './$types';
 	import { Backend } from '$lib/backend';
-	import { goto, invalidateAll } from '$app/navigation';
+	import { goto, invalidate, invalidateAll } from '$app/navigation';
 	import { onMount, tick } from 'svelte';
 
 	export let data: PageData;
@@ -37,9 +37,17 @@
 		'December'
 	];
 
-	let calendarMonth = new Date().getMonth();
-	let calendarYear = new Date().getFullYear();
+	let calendarMonth = data.issueMonth - 1;
+	let calendarYear = data.issueYear;
 	let currentCalendar = data.calendar[`${calendarYear}-${calendarMonth + 1}`];
+
+	$: {
+		if (data) {
+			let calendarMonth = data.issueMonth - 1;
+			let calendarYear = data.issueYear;
+			currentCalendar = data.calendar[`${calendarYear}-${calendarMonth + 1}`];
+		}
+	}
 
 	async function nextCalendar() {
 		calendarMonth++;
@@ -76,8 +84,9 @@
 	let calendarHeight = 0;
 	let calendarEl;
 
-	function setIssue(day: number) {
-		goto(`/?issue=${calendarYear}-${calendarMonth + 1}-${day}`, { replaceState: true });
+	async function setIssue(day: number) {
+		await goto(`/?issue=${calendarYear}-${calendarMonth + 1}-${day}`, { replaceState: true });
+		await invalidateAll();
 	}
 
 	async function logout() {
@@ -159,10 +168,13 @@
 			<div class="grid grid-cols-7 gap-4 py-3">
 				{#each currentCalendar as calendarDay, index}
 					<button
+						disabled={calendarDay.isFuture}
 						on:click={() => setIssue(index + 1)}
-						class="hover:scale-110 transition-all duration-250 transform rounded-full col-span-1 flex items-center justify-center text-center text-neutral-300 relative"
+						class="disabled:opacity-25 disabled:hover:scale-100 hover:scale-110 transition-all duration-250 transform rounded-full col-span-1 flex items-center justify-center text-center text-neutral-300 relative"
 					>
-						<div class="relative w-full">
+						<div
+							class={`relative w-full ${calendarDay.isSelected ? 'border-2 rounded-full border-neutral-100' : ''}`}
+						>
 							<div class="absolute inset-0 z-[2] flex items-center justify-center text-center">
 								<p>{index + 1}</p>
 							</div>
