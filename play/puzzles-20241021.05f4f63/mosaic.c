@@ -1409,14 +1409,15 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
     float *ret = snewn(3 * NCOLOURS, float);
 
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
-    COLOUR(ret, COL_GRID, 0.0F, 102 / 255.0F, 99 / 255.0F);
-    COLOUR(ret, COL_ERROR, 1.0F, 0.0F, 0.0F);
-    COLOUR(ret, COL_BLANK, 236 / 255.0F, 236 / 255.0F, 236 / 255.0F);
-    COLOUR(ret, COL_MARKED, 20 / 255.0F, 20 / 255.0F, 20 / 255.0F);
-    COLOUR(ret, COL_UNMARKED, 148 / 255.0F, 196 / 255.0F, 190 / 255.0F);
-    COLOUR(ret, COL_TEXT_SOLVED, 100 / 255.0F, 100 / 255.0F, 100 / 255.0F);
-    COLOUR(ret, COL_CURSOR, 255 / 255.0F, 200 / 255.0F, 200 / 255.0F);
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_grid_colour(ret, COL_GRID);
+    theme_cursor_colour(ret, COL_CURSOR);
+    theme_error_colour(ret, COL_ERROR);
+
+    theme_state_yes_colour(ret, COL_MARKED);
+    theme_state_no_colour(ret, COL_TEXT_SOLVED);
+    theme_state_no_colour(ret, COL_BLANK); 
+    theme_state_empty_colour(ret, COL_UNMARKED);
 
     *ncolours = NCOLOURS;
     return ret;

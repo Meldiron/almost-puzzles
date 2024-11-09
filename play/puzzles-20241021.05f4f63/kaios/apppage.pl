@@ -189,7 +189,7 @@ body {
 }
 
 #puzzle {
-    background: #282a36;
+    background: #262626;
     flex: 1 1 auto;
     flex-direction: column;
     align-items: center;

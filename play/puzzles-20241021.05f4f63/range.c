@@ -1265,7 +1265,7 @@ static game_ui *new_ui(const game_state *state)
     ui->r = ui->c = 0;
     ui->cursor_show = getenv_bool("PUZZLES_SHOW_CURSOR", false);
 
-    ui->swap_buttons = false;
+    ui->swap_buttons = true;
     legacy_prefs_override(ui);
 
     return ui;
@@ -1679,9 +1679,10 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
     float *ret = snewn(3 * NCOLOURS, float);
 
-    game_mkhighlight(fe, ret, COL_BACKGROUND, -1, COL_LOWLIGHT);
-    COLOUR(ret, COL_GRID,  0.0F, 0.0F, 0.0F);
-    COLOUR(ret, COL_ERROR, 1.0F, 0.0F, 0.0F);
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_state_yes_colour(ret, COL_GRID);
+    theme_cursor_colour(ret, COL_LOWLIGHT);
+    theme_error_colour(ret, COL_ERROR);
 
     *ncolours = NCOLOURS;
     return ret;

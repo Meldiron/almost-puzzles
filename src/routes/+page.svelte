@@ -1,11 +1,48 @@
 <script lang="ts">
-	import { Games } from '$lib';
+	import { Games, playUrl } from '$lib';
 	import type { PageData } from './$types';
 	import { Backend } from '$lib/backend';
 	import { goto, invalidate, invalidateAll } from '$app/navigation';
 	import { onMount, tick } from 'svelte';
+	import { isQuickPlay, quickPlayCloseAt } from '$lib/store';
+	import Game from './Game.svelte';
 
 	export let data: PageData;
+
+	let modalGame: any = null;
+
+	$: if ($quickPlayCloseAt) {
+		closeModalGame($quickPlayCloseAt);
+	}
+
+	function startModalGame(gameId: string, mode: string) {
+		$isQuickPlay = true;
+
+		modalGame = {
+			gameId,
+			mode,
+			year: data.issueYear,
+			month: data.issueMonth,
+			day: data.issueDay
+		};
+
+		const div = document.getElementById('games') as HTMLDivElement;
+		if (div && !isElementInView(div)) {
+			div?.scrollIntoView();
+		}
+	}
+
+	function isElementInView(element: HTMLElement) {
+		if (window.scrollY > element.offsetTop) {
+			return true;
+		}
+		return false;
+	}
+
+	function closeModalGame(closeAt: number = 0) {
+		modalGame = null;
+		$isQuickPlay = false;
+	}
 
 	const monthNamesShort = [
 		'Jan',
@@ -245,7 +282,7 @@
 	</h1>
 
 	<div
-		class={`mt-0 z-[5] mx-auto w-full max-w-md sticky top-3 p-3 border rounded-2xl ${getPercentage(data.issueFinished, data.issueTotal) >= 100 ? 'bg-neutral-800 border-neutral-600' : 'bg-neutral-800 border-neutral-600'}`}
+		class={`mt-0 z-[10] mx-auto w-full max-w-md sticky top-3 p-3 border rounded-2xl ${getPercentage(data.issueFinished, data.issueTotal) >= 100 ? 'bg-neutral-800 border-neutral-600' : 'bg-neutral-800 border-neutral-600'}`}
 	>
 		<div class="flex justify-between mb-3">
 			<span class="text-base font-medium text-white"
@@ -264,7 +301,7 @@
 		</div>
 	</div>
 
-	<div class="mt-3 grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4">
+	<div id="games" class="mt-3 grid grid-cols-6 sm:grid-cols-9 md:grid-cols-12 mt-6 gap-4">
 		{#each Object.keys(Games) as gameId}
 			{@const game = Games[gameId]}
 			<a
@@ -298,42 +335,45 @@
 						{@const modeData = game.modes[mode]}
 						<div class="col-span-4">
 							<p class="text-sm text-neutral-400 text-center w-full mb-2">{modeData.name}</p>
-							<a href={`/games/${gameId}/${mode}/${data.issuePath}#game`}>
-								<button
-									disabled={data.issueFinishes[`${gameId}-${mode}`]}
-									class={`w-full flex items-center justify-center p-2 rounded-xl ${data.issueFinishes[`${gameId}-${mode}`] ? 'bg-neutral-700 text-neutral-400' : 'bg-green-500 text-white'}`}
-								>
-									{#if data.issueFinishes[`${gameId}-${mode}`]}
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke-width="3"
-											stroke="currentColor"
-											class="size-5"
-										>
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												d="m4.5 12.75 6 6 9-13.5"
-											/>
-										</svg>
-									{:else}
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											fill="currentColor"
-											class="size-5"
-										>
-											<path
-												fill-rule="evenodd"
-												d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
-												clip-rule="evenodd"
-											/>
-										</svg>
-									{/if}
-								</button>
-							</a>
+
+							<button
+								on:click={(e) => {
+									e.preventDefault();
+									startModalGame(gameId, mode);
+								}}
+								disabled={data.issueFinishes[`${gameId}-${mode}`]}
+								class={`w-full flex items-center justify-center p-2 rounded-xl ${data.issueFinishes[`${gameId}-${mode}`] ? 'bg-neutral-700 text-neutral-400' : 'bg-green-500 text-white'}`}
+							>
+								{#if data.issueFinishes[`${gameId}-${mode}`]}
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="3"
+										stroke="currentColor"
+										class="size-5"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="m4.5 12.75 6 6 9-13.5"
+										/>
+									</svg>
+								{:else}
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="currentColor"
+										class="size-5"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								{/if}
+							</button>
 						</div>
 					{/each}
 				</div>
@@ -341,3 +381,37 @@
 		{/each}
 	</div>
 </div>
+
+{#if modalGame}
+	<div class="fixed z-[15] inset-0 flex items-center justify-center bg-black bg-opacity-50">
+		<div
+			class="relative bg-neutral-800 border rounded-2xl w-full max-w-[600px] border-neutral-600 w-full p-2"
+		>
+			<div class="absolute top-4 right-4">
+				<button
+					class="rounded-xl bg-neutral-600 text-neutral-100 p-1"
+					on:click={() => closeModalGame()}
+				>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke-width="1.5"
+						stroke="currentColor"
+						class="size-6"
+					>
+						<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+					</svg>
+				</button>
+			</div>
+
+			<Game
+				gameId={modalGame.gameId}
+				mode={modalGame.mode}
+				year={modalGame.year}
+				month={modalGame.month}
+				day={modalGame.day}
+			/>
+		</div>
+	</div>
+{/if}

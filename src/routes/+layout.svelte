@@ -2,6 +2,7 @@
 	import { goto, invalidateAll } from '$app/navigation';
 	import { isLeapYear } from '$lib';
 	import { Backend } from '$lib/backend';
+	import { isQuickPlay, quickPlayCloseAt } from '$lib/store';
 	import '../app.css';
 	import type { LayoutData } from './$types';
 
@@ -26,6 +27,14 @@
 						+day
 					);
 					await invalidateAll();
+
+					console.log($isQuickPlay);
+
+					if ($isQuickPlay) {
+						Swal.close();
+						$quickPlayCloseAt = Date.now();
+						return;
+					}
 
 					const date = new Date(+year, +month - 1, +day);
 					date.setHours(date.getHours() + 24);
