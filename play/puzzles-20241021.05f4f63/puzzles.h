@@ -545,6 +545,18 @@ void domino_layout_prealloc(int w, int h, random_state *rs,
 extern char ver[];
 
 /*
+ * theme.c
+ */
+void theme_background_colour(float *ret, int offset);
+void theme_background_flash_colour(float *ret, int offset);
+void theme_grid_colour(float *ret, int offset);
+void theme_cursor_colour(float *ret, int offset);
+void theme_error_colour(float *ret, int offset);
+void theme_state_empty_colour(float *ret, int offset);
+void theme_state_yes_colour(float *ret, int offset);
+void theme_state_no_colour(float *ret, int offset);
+
+/*
  * random.c
  */
 random_state *random_new(const char *seed, int len);

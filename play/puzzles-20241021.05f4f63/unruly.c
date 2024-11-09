@@ -1749,28 +1749,17 @@ static float *game_colours(frontend *fe, int *ncolours)
     float *ret = snewn(3 * NCOLOURS, float);
     int i;
 
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
-
-    for (i = 0; i < 3; i++) {
-        ret[COL_1 * 3 + i] = 0.2F;
-        ret[COL_1_HIGHLIGHT * 3 + i] = 0.4F;
-        ret[COL_1_LOWLIGHT * 3 + i] = 0.0F;
-        ret[COL_0 * 3 + i] = 0.95F;
-        ret[COL_0_HIGHLIGHT * 3 + i] = 1.0F;
-        ret[COL_0_LOWLIGHT * 3 + i] = 0.9F;
-        ret[COL_EMPTY * 3 + i] = 0.5F;
-        ret[COL_GRID * 3 + i] = 0.3F;
-    }
-    game_mkhighlight_specific(fe, ret, COL_0, COL_0_HIGHLIGHT, COL_0_LOWLIGHT);
-    game_mkhighlight_specific(fe, ret, COL_1, COL_1_HIGHLIGHT, COL_1_LOWLIGHT);
-
-    ret[COL_ERROR * 3 + 0] = 1.0F;
-    ret[COL_ERROR * 3 + 1] = 0.0F;
-    ret[COL_ERROR * 3 + 2] = 0.0F;
-
-    ret[COL_CURSOR * 3 + 0] = 0.0F;
-    ret[COL_CURSOR * 3 + 1] = 0.7F;
-    ret[COL_CURSOR * 3 + 2] = 0.0F;
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_grid_colour(ret, COL_GRID);
+    theme_cursor_colour(ret, COL_CURSOR);
+    theme_error_colour(ret, COL_ERROR);
+    theme_state_empty_colour(ret, COL_EMPTY);
+    theme_state_yes_colour(ret, COL_1);
+    theme_state_yes_colour(ret, COL_1_HIGHLIGHT);
+    theme_state_yes_colour(ret, COL_1_LOWLIGHT);
+    theme_state_no_colour(ret, COL_0);
+    theme_state_no_colour(ret, COL_0_HIGHLIGHT);
+    theme_state_no_colour(ret, COL_0_LOWLIGHT);
 
     *ncolours = NCOLOURS;
     return ret;

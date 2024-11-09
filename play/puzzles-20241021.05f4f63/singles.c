@@ -1557,7 +1557,14 @@ static char *interpret_move(const game_state *state, game_ui *ui,
             ui->show_black_nums = !ui->show_black_nums;
             action = UI;
         } else if (button == LEFT_BUTTON) {
-            action = TOGGLE_BLACK;
+            i = y * state->w + x;
+            if (state->flags[i] & F_CIRCLE) {
+                action = TOGGLE_CIRCLE;
+            } else if (state->flags[i] & F_BLACK) {
+                action = TOGGLE_CIRCLE;
+            } else {
+                action = TOGGLE_BLACK;
+            }
         } else if (button == RIGHT_BUTTON) {
             action = TOGGLE_CIRCLE;
         }
@@ -1566,10 +1573,7 @@ static char *interpret_move(const game_state *state, game_ui *ui,
 
     if (action == TOGGLE_BLACK || action == TOGGLE_CIRCLE) {
         i = y * state->w + x;
-        if (state->flags[i] & (F_BLACK | F_CIRCLE))
-            c = 'E';
-        else
-            c = (action == TOGGLE_BLACK) ? 'B' : 'C';
+        c = (action == TOGGLE_BLACK) ? 'B' : 'C';
         sprintf(buf, "%c%d,%d", (int)c, x, y);
         return dupstr(buf);
     }
@@ -1593,11 +1597,25 @@ static game_state *execute_move(const game_state *state, const char *move)
                 goto badmove;
 
             i = y*ret->w + x;
+
+            if(c == 'C' && (ret->flags[i] & F_BLACK)) {
+                ret->flags[i] &= ~(F_CIRCLE | F_BLACK);
+            }
+
+            bool was_circle = ret->flags[i] & F_CIRCLE;
+            bool was_black = ret->flags[i] & F_BLACK;
+
             ret->flags[i] &= ~(F_CIRCLE | F_BLACK); /* empty first, always. */
-            if (c == 'B')
-                ret->flags[i] |= F_BLACK;
-            else if (c == 'C')
-                ret->flags[i] |= F_CIRCLE;
+
+            if (c == 'B') {
+                if(!was_black) {
+                    ret->flags[i] |= F_BLACK;
+                }
+            } else if (c == 'C') {
+                if(!was_circle) {
+                    ret->flags[i] |= F_CIRCLE;
+                }
+            }
             move += n;
         } else if (c == 'S') {
             move++;
@@ -1644,21 +1662,15 @@ static float *game_colours(frontend *fe, int *ncolours)
     float *ret = snewn(3 * NCOLOURS, float);
     int i;
 
-    game_mkhighlight(fe, ret, COL_BACKGROUND, -1, COL_LOWLIGHT);
-    for (i = 0; i < 3; i++) {
-        ret[COL_BLACK * 3 + i] = 0.0F;
-        ret[COL_BLACKNUM * 3 + i] = 0.4F;
-        ret[COL_WHITE * 3 + i] = 1.0F;
-        ret[COL_GRID * 3 + i] = ret[COL_LOWLIGHT * 3 + i];
-        ret[COL_UNUSED1 * 3 + i] = 0.0F; /* To placate an assertion. */
-    }
-    ret[COL_CURSOR * 3 + 0] = 0.2F;
-    ret[COL_CURSOR * 3 + 1] = 0.8F;
-    ret[COL_CURSOR * 3 + 2] = 0.0F;
-
-    ret[COL_ERROR * 3 + 0] = 1.0F;
-    ret[COL_ERROR * 3 + 1] = 0.0F;
-    ret[COL_ERROR * 3 + 2] = 0.0F;
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_background_flash_colour(ret, COL_LOWLIGHT);
+    theme_grid_colour(ret, COL_GRID);
+    theme_cursor_colour(ret, COL_CURSOR);
+    theme_error_colour(ret, COL_ERROR);
+    theme_state_yes_colour(ret, COL_WHITE);
+    theme_state_yes_colour(ret, COL_UNUSED1);
+    theme_state_yes_colour(ret, COL_BLACK);
+    theme_state_yes_colour(ret, COL_BLACKNUM);
 
     *ncolours = NCOLOURS;
     return ret;

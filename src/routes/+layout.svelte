@@ -14,6 +14,7 @@
 
 			Swal.fire({
 				didOpen: async () => {
+					Swal.fire({ allowOutsideClick: false });
 					Swal.showLoading();
 
 					const finishes = await Backend.addFinish(

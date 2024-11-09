@@ -64,6 +64,7 @@ enum {
 	COL_COUNT_ERROR,
 	COL_COLLISION_ERROR,
 	COL_COLLISION_TEXT,
+	COL_WATER_ENFORCED,
 	NCOLOURS
 };
 
@@ -3403,63 +3404,30 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
 	float *ret = snewn(3 * NCOLOURS, float);
 
-	frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
-	
-	ret[COL_GRID * 3 + 0] = 0.0F;
-    ret[COL_GRID * 3 + 1] = 0.0F;
-    ret[COL_GRID * 3 + 2] = 0.0F;
-	
-	ret[COL_WATER * 3 + 0] = 0.5F;
-    ret[COL_WATER * 3 + 1] = 0.7F;
-    ret[COL_WATER * 3 + 2] = 1.0F;
-	
-	ret[COL_CURSOR_A * 3 + 0] = 0.0F;
-    ret[COL_CURSOR_A * 3 + 1] = 0.0F;
-    ret[COL_CURSOR_A * 3 + 2] = 0.0F;
-	
-	ret[COL_CURSOR_B * 3 + 0] = 1.0F;
-    ret[COL_CURSOR_B * 3 + 1] = 1.0F;
-    ret[COL_CURSOR_B * 3 + 2] = 1.0F;
-	
-	ret[COL_SHIP_CLUE * 3 + 0] = 0.1F;
-    ret[COL_SHIP_CLUE * 3 + 1] = 0.1F;
-    ret[COL_SHIP_CLUE * 3 + 2] = 0.1F;
-	
-	ret[COL_SHIP_GUESS * 3 + 0] = 0.0F;
-    ret[COL_SHIP_GUESS * 3 + 1] = 0.0F;
-    ret[COL_SHIP_GUESS * 3 + 2] = 0.0F;
-	
-	ret[COL_SHIP_ERROR * 3 + 0] = 0.8F;
-    ret[COL_SHIP_ERROR * 3 + 1] = 0.0F;
-    ret[COL_SHIP_ERROR * 3 + 2] = 0.0F;
-	
-	ret[COL_SHIP_FLEET * 3 + 0] = 0.0F;
-    ret[COL_SHIP_FLEET * 3 + 1] = 0.5F;
-    ret[COL_SHIP_FLEET * 3 + 2] = 0.0F;
-	
-	ret[COL_SHIP_FLEET_DONE * 3 + 0] = 0.7F;
-    ret[COL_SHIP_FLEET_DONE * 3 + 1] = 0.7F;
-    ret[COL_SHIP_FLEET_DONE * 3 + 2] = 0.7F;
-	
-	ret[COL_SHIP_FLEET_STRIPE * 3 + 0] = 0.0F;
-    ret[COL_SHIP_FLEET_STRIPE * 3 + 1] = 0.0F;
-    ret[COL_SHIP_FLEET_STRIPE * 3 + 2] = 0.0F;
-	
-	ret[COL_COUNT * 3 + 0] = 0.0F;
-    ret[COL_COUNT * 3 + 1] = 0.0F;
-    ret[COL_COUNT * 3 + 2] = 0.0F;
-	
-	ret[COL_COUNT_ERROR * 3 + 0] = 1.0F;
-    ret[COL_COUNT_ERROR * 3 + 1] = 0.0F;
-    ret[COL_COUNT_ERROR * 3 + 2] = 0.0F;
-	
-	ret[COL_COLLISION_ERROR * 3 + 0] = 1.0F;
-    ret[COL_COLLISION_ERROR * 3 + 1] = 0.0F;
-    ret[COL_COLLISION_ERROR * 3 + 2] = 0.0F;
-	
-	ret[COL_COLLISION_TEXT * 3 + 0] = 1.0F;
-    ret[COL_COLLISION_TEXT * 3 + 1] = 1.0F;
-    ret[COL_COLLISION_TEXT * 3 + 2] = 1.0F;
+	theme_background_colour(ret, COL_BACKGROUND);
+    theme_grid_colour(ret, COL_GRID);
+    theme_cursor_colour(ret, COL_CURSOR_A);
+    theme_cursor_colour(ret, COL_CURSOR_B);
+    theme_error_colour(ret, COL_SHIP_ERROR);
+    theme_error_colour(ret, COL_COUNT_ERROR);
+    theme_error_colour(ret, COL_COLLISION_ERROR);
+    theme_state_yes_colour(ret, COL_WATER_ENFORCED);
+    theme_state_yes_colour(ret, COL_COUNT);
+    theme_state_yes_colour(ret, COL_SHIP_FLEET_STRIPE);
+    theme_state_yes_colour(ret, COL_COLLISION_TEXT);
+    theme_state_no_colour(ret, COL_SHIP_GUESS);
+    theme_state_no_colour(ret, COL_SHIP_CLUE);
+    theme_state_empty_colour(ret, COL_SHIP_FLEET_DONE);
+
+    // theme_state_empty_colour(ret, COL_BLACK);
+
+	ret[COL_WATER * 3 + 0] = 0.3764705882352941F;
+    ret[COL_WATER * 3 + 1] = 0.6470588235294118F;
+    ret[COL_WATER * 3 + 2] = 0.9803921568627451F;
+
+	ret[COL_SHIP_FLEET * 3 + 0] = 0.08627450980392157F;
+    ret[COL_SHIP_FLEET * 3 + 1] = 0.6392156862745098F;
+    ret[COL_SHIP_FLEET * 3 + 2] = 0.2901960784313726F;
 
 	*ncolours = NCOLOURS;
 	return ret;
@@ -3851,11 +3819,11 @@ static void game_redraw(drawing *dr, game_drawstate *ds, const game_state *oldst
 			{
 				draw_text(dr, tx + tilesize/2, ty + (tilesize * 0.42F),
 				  FONT_VARIABLE, tilesize/2, ALIGN_HCENTRE|ALIGN_VCENTRE,
-				  COL_GRID, "~");
+				  COL_WATER_ENFORCED, "~");
 				  
 				draw_text(dr, tx + tilesize/2, ty + (tilesize * 0.58F),
 				  FONT_VARIABLE, tilesize/2, ALIGN_HCENTRE|ALIGN_VCENTRE,
-				  COL_GRID, "~");
+				  COL_WATER_ENFORCED, "~");
 			}
 			if(IS_SHIP(ship) && ds->gridfs[y*w+x] & FE_FLEET)
 			{

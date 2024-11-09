@@ -90,6 +90,7 @@ enum {
     COL_LIT,			       /* yellow */
     COL_ERROR,			       /* red */
     COL_CURSOR,
+    COL_EMPTY,
     NCOLOURS
 };
 
@@ -2078,23 +2079,17 @@ static float *game_colours(frontend *fe, int *ncolours)
     float *ret = snewn(3 * NCOLOURS, float);
     int i;
 
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_grid_colour(ret, COL_GRID);
+    theme_cursor_colour(ret, COL_CURSOR);
+    theme_error_colour(ret, COL_ERROR);
+    theme_state_yes_colour(ret, COL_LIGHT);
+    theme_state_no_colour(ret, COL_EMPTY);
+    theme_state_empty_colour(ret, COL_BLACK);
 
-    for (i = 0; i < 3; i++) {
-        ret[COL_BLACK * 3 + i] = 0.0F;
-        ret[COL_LIGHT * 3 + i] = 1.0F;
-        ret[COL_CURSOR * 3 + i] = ret[COL_BACKGROUND * 3 + i] / 2.0F;
-        ret[COL_GRID * 3 + i] = ret[COL_BACKGROUND * 3 + i] / 1.5F;
-
-    }
-
-    ret[COL_ERROR * 3 + 0] = 1.0F;
-    ret[COL_ERROR * 3 + 1] = 0.25F;
-    ret[COL_ERROR * 3 + 2] = 0.25F;
-
-    ret[COL_LIT * 3 + 0] = 1.0F;
-    ret[COL_LIT * 3 + 1] = 1.0F;
-    ret[COL_LIT * 3 + 2] = 0.0F;
+    ret[COL_LIT * 3 + 0] = 0.9921568627450981F;
+    ret[COL_LIT * 3 + 1] = 0.8784313725490196F;
+    ret[COL_LIT * 3 + 2] = 0.2784313725490196F;
 
     *ncolours = NCOLOURS;
     return ret;
@@ -2188,7 +2183,7 @@ static void tile_redraw(drawing *dr, game_drawstate *ds, const game_ui *ui,
         }
     } else {
         draw_rect(dr, dx, dy, TILE_SIZE, TILE_SIZE,
-                  (ds_flags & DF_LIT) ? lit : COL_BACKGROUND);
+                  (ds_flags & DF_LIT) ? lit : COL_EMPTY);
         draw_rect_outline(dr, dx, dy, TILE_SIZE, TILE_SIZE, COL_GRID);
         if (ds_flags & DF_LIGHT) {
             int lcol = (ds_flags & DF_OVERLAP) ? COL_ERROR : COL_LIGHT;
