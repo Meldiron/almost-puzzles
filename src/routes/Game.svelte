@@ -56,7 +56,7 @@
 	}
 </script>
 
-<div class="mt-6 flex items-center justify-center gap-3">
+<div class="mt-3 flex items-center justify-center gap-3">
 	<button class="bg-neutral-200 text-neutral-800 px-4 py-1 rounded-xl" on:click={undo}>Undo</button>
 	<button class="bg-neutral-200 text-neutral-800 px-4 py-1 rounded-xl" on:click={redo}>Redo</button>
 	<button class="bg-neutral-200 text-neutral-800 px-4 py-1 rounded-xl" on:click={restart}

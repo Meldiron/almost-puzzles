@@ -4883,39 +4883,21 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
     float *ret = snewn(3 * NCOLOURS, float);
 
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_grid_colour(ret, COL_GRID);
+    theme_error_colour(ret, COL_ERROR);
+    theme_state_yes_colour(ret, COL_CLUE);
+    theme_state_yes_colour(ret, COL_KILLER);
+    theme_cursor_colour(ret, COL_PENCIL);
+    theme_state_empty_colour(ret, COL_HIGHLIGHT);
 
-    ret[COL_XDIAGONALS * 3 + 0] = 0.9F * ret[COL_BACKGROUND * 3 + 0];
-    ret[COL_XDIAGONALS * 3 + 1] = 0.9F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_XDIAGONALS * 3 + 2] = 0.9F * ret[COL_BACKGROUND * 3 + 2];
+    ret[COL_USER * 3 + 0] = 0.13333333333333333F;
+    ret[COL_USER * 3 + 1] = 0.7725490196078432F;
+    ret[COL_USER * 3 + 2] = 0.3686274509803922F;
 
-    ret[COL_GRID * 3 + 0] = 0.0F;
-    ret[COL_GRID * 3 + 1] = 0.0F;
-    ret[COL_GRID * 3 + 2] = 0.0F;
-
-    ret[COL_CLUE * 3 + 0] = 0.0F;
-    ret[COL_CLUE * 3 + 1] = 0.0F;
-    ret[COL_CLUE * 3 + 2] = 0.0F;
-
-    ret[COL_USER * 3 + 0] = 0.0F;
-    ret[COL_USER * 3 + 1] = 0.6F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_USER * 3 + 2] = 0.0F;
-
-    ret[COL_HIGHLIGHT * 3 + 0] = 0.78F * ret[COL_BACKGROUND * 3 + 0];
-    ret[COL_HIGHLIGHT * 3 + 1] = 0.78F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_HIGHLIGHT * 3 + 2] = 0.78F * ret[COL_BACKGROUND * 3 + 2];
-
-    ret[COL_ERROR * 3 + 0] = 1.0F;
-    ret[COL_ERROR * 3 + 1] = 0.0F;
-    ret[COL_ERROR * 3 + 2] = 0.0F;
-
-    ret[COL_PENCIL * 3 + 0] = 0.5F * ret[COL_BACKGROUND * 3 + 0];
-    ret[COL_PENCIL * 3 + 1] = 0.5F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_PENCIL * 3 + 2] = ret[COL_BACKGROUND * 3 + 2];
-
-    ret[COL_KILLER * 3 + 0] = 0.5F * ret[COL_BACKGROUND * 3 + 0];
-    ret[COL_KILLER * 3 + 1] = 0.5F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_KILLER * 3 + 2] = 0.1F * ret[COL_BACKGROUND * 3 + 2];
+    ret[COL_XDIAGONALS * 3 + 0] = 0.8F * ret[COL_BACKGROUND * 3 + 0];
+    ret[COL_XDIAGONALS * 3 + 1] = 0.8F * ret[COL_BACKGROUND * 3 + 1];
+    ret[COL_XDIAGONALS * 3 + 2] = 0.8F * ret[COL_BACKGROUND * 3 + 2];
 
     *ncolours = NCOLOURS;
     return ret;

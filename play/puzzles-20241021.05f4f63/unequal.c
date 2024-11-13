@@ -1793,25 +1793,17 @@ static float *game_colours(frontend *fe, int *ncolours)
     float *ret = snewn(3 * NCOLOURS, float);
     int i;
 
-    game_mkhighlight(fe, ret, COL_BACKGROUND, COL_HIGHLIGHT, COL_LOWLIGHT);
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_state_empty_colour(ret, COL_LOWLIGHT);
+    theme_grid_colour(ret, COL_GRID);
+    theme_error_colour(ret, COL_ERROR);
+    theme_state_yes_colour(ret, COL_TEXT);
+    theme_cursor_colour(ret, COL_PENCIL);
+    theme_state_empty_colour(ret, COL_HIGHLIGHT);
 
-    for (i = 0; i < 3; i++) {
-        ret[COL_TEXT * 3 + i] = 0.0F;
-        ret[COL_GRID * 3 + i] = 0.5F;
-    }
-
-    /* Lots of these were taken from solo.c. */
-    ret[COL_GUESS * 3 + 0] = 0.0F;
-    ret[COL_GUESS * 3 + 1] = 0.6F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_GUESS * 3 + 2] = 0.0F;
-
-    ret[COL_ERROR * 3 + 0] = 1.0F;
-    ret[COL_ERROR * 3 + 1] = 0.0F;
-    ret[COL_ERROR * 3 + 2] = 0.0F;
-
-    ret[COL_PENCIL * 3 + 0] = 0.5F * ret[COL_BACKGROUND * 3 + 0];
-    ret[COL_PENCIL * 3 + 1] = 0.5F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_PENCIL * 3 + 2] = ret[COL_BACKGROUND * 3 + 2];
+    ret[COL_GUESS * 3 + 0] = 0.13333333333333333F;
+    ret[COL_GUESS * 3 + 1] = 0.7725490196078432F;
+    ret[COL_GUESS * 3 + 2] = 0.3686274509803922F;
 
     *ncolours = NCOLOURS;
     return ret;

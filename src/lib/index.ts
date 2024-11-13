@@ -19,15 +19,15 @@ export const Games: { [key: string]: Game } = {
 		modes: {
 			easy: {
 				name: 'Easy',
-				config: '4x4mRdn'
+				config: '3x3mRdn'
 			},
 			normal: {
 				name: 'Normal',
-				config: '5x5mRdn'
+				config: '4x4mRdn'
 			},
 			hard: {
 				name: 'Hard',
-				config: '6x6mRdn'
+				config: '5x5mRdn'
 			}
 		}
 	},

@@ -2574,53 +2574,16 @@ static float *game_colours(frontend *fe, int *ncolours)
     ret = snewn(NCOLOURS * 3, float);
     *ncolours = NCOLOURS;
 
-    /*
-     * Basic background colour is whatever the front end thinks is
-     * a sensible default.
-     */
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_grid_colour(ret, COL_BARRIER);
+    theme_cursor_colour(ret, COL_BORDER);
+    theme_error_colour(ret, COL_ERR);
+    theme_grid_colour(ret, COL_WIRE);
+    theme_grid_colour(ret, COL_ENDPOINT);
 
-    /*
-     * Wires are black.
-     */
-    ret[COL_WIRE * 3 + 0] = 0.0F;
-    ret[COL_WIRE * 3 + 1] = 0.0F;
-    ret[COL_WIRE * 3 + 2] = 0.0F;
-
-    /*
-     * Powered wires and powered endpoints are cyan.
-     */
-    ret[COL_POWERED * 3 + 0] = 0.0F;
-    ret[COL_POWERED * 3 + 1] = 1.0F;
-    ret[COL_POWERED * 3 + 2] = 1.0F;
-
-    /*
-     * Barriers are red.
-     */
-    ret[COL_BARRIER * 3 + 0] = 1.0F;
-    ret[COL_BARRIER * 3 + 1] = 0.0F;
-    ret[COL_BARRIER * 3 + 2] = 0.0F;
-
-    /*
-     * Highlighted errors are red as well.
-     */
-    ret[COL_ERR * 3 + 0] = 1.0F;
-    ret[COL_ERR * 3 + 1] = 0.0F;
-    ret[COL_ERR * 3 + 2] = 0.0F;
-
-    /*
-     * Unpowered endpoints are blue.
-     */
-    ret[COL_ENDPOINT * 3 + 0] = 0.0F;
-    ret[COL_ENDPOINT * 3 + 1] = 0.0F;
-    ret[COL_ENDPOINT * 3 + 2] = 1.0F;
-
-    /*
-     * Tile borders are a darker grey than the background.
-     */
-    ret[COL_BORDER * 3 + 0] = 0.5F * ret[COL_BACKGROUND * 3 + 0];
-    ret[COL_BORDER * 3 + 1] = 0.5F * ret[COL_BACKGROUND * 3 + 1];
-    ret[COL_BORDER * 3 + 2] = 0.5F * ret[COL_BACKGROUND * 3 + 2];
+    ret[COL_POWERED * 3 + 0] = 0.13333333333333333F;
+    ret[COL_POWERED * 3 + 1] = 0.8274509803921568F;
+    ret[COL_POWERED * 3 + 2] = 0.9333333333333333F;
 
     /*
      * Locked tiles are a grey in between those two.

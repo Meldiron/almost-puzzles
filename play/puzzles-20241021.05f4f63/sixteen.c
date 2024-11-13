@@ -824,10 +824,11 @@ static float *game_colours(frontend *fe, int *ncolours)
     float *ret = snewn(3 * NCOLOURS, float);
     int i;
 
-    game_mkhighlight(fe, ret, COL_BACKGROUND, COL_HIGHLIGHT, COL_LOWLIGHT);
 
-    for (i = 0; i < 3; i++)
-        ret[COL_TEXT * 3 + i] = 0.0;
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_state_empty_colour(ret, COL_LOWLIGHT);
+    theme_state_no_colour(ret, COL_HIGHLIGHT);
+    theme_state_yes_colour(ret, COL_TEXT);
 
     *ncolours = NCOLOURS;
     return ret;

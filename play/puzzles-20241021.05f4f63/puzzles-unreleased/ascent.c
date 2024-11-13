@@ -3275,27 +3275,14 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
 	float *ret = snewn(3 * NCOLOURS, float);
 
-	game_mkhighlight(fe, ret, COL_MIDLIGHT, COL_HIGHLIGHT, COL_LOWLIGHT);
-
-	ret[COL_BORDER * 3 + 0] = 0.0F;
-	ret[COL_BORDER * 3 + 1] = 0.0F;
-	ret[COL_BORDER * 3 + 2] = 0.0F;
-	
-	ret[COL_LINE * 3 + 0] = 0.0F;
-	ret[COL_LINE * 3 + 1] = 0.5F;
-	ret[COL_LINE * 3 + 2] = 0.0F;
-
-	ret[COL_IMMUTABLE * 3 + 0] = 0.0F;
-	ret[COL_IMMUTABLE * 3 + 1] = 0.0F;
-	ret[COL_IMMUTABLE * 3 + 2] = 1.0F;
-	
-	ret[COL_ERROR * 3 + 0] = 1.0F;
-	ret[COL_ERROR * 3 + 1] = 0.0F;
-	ret[COL_ERROR * 3 + 2] = 0.0F;
-	
-	ret[COL_CURSOR * 3 + 0] = 0.0F;
-	ret[COL_CURSOR * 3 + 1] = 0.7F;
-	ret[COL_CURSOR * 3 + 2] = 0.0F;
+    theme_background_colour(ret, COL_MIDLIGHT);
+    theme_cursor_colour(ret, COL_CURSOR);
+    theme_error_colour(ret, COL_ERROR);
+    theme_state_yes_colour(ret, COL_IMMUTABLE);
+    theme_state_empty_colour(ret, COL_LINE);
+    theme_cursor_colour(ret, COL_BORDER);
+    theme_grid_colour(ret, COL_HIGHLIGHT);
+    theme_grid_colour(ret, COL_LOWLIGHT);
 
 	ret[COL_ARROW * 3 + 0] = 1.0F;
 	ret[COL_ARROW * 3 + 1] = 1.0F;

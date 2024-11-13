@@ -997,41 +997,13 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
     float *ret = snewn(3 * NCOLOURS, float);
 
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
-
-    ret[COL_FOREGROUND * 3 + 0] = 0.0F;
-    ret[COL_FOREGROUND * 3 + 1] = 0.0F;
-    ret[COL_FOREGROUND * 3 + 2] = 0.0F;
-
-    /*
-     * We want COL_LINEUNKNOWN to be a yellow which is a bit darker
-     * than the background. (I previously set it to 0.8,0.8,0, but
-     * found that this went badly with the 0.8,0.8,0.8 favoured as a
-     * background by the Java frontend.)
-     */
-    ret[COL_LINEUNKNOWN * 3 + 0] = ret[COL_BACKGROUND * 3 + 0] * 0.9F;
-    ret[COL_LINEUNKNOWN * 3 + 1] = ret[COL_BACKGROUND * 3 + 1] * 0.9F;
-    ret[COL_LINEUNKNOWN * 3 + 2] = 0.0F;
-
-    ret[COL_HIGHLIGHT * 3 + 0] = 1.0F;
-    ret[COL_HIGHLIGHT * 3 + 1] = 1.0F;
-    ret[COL_HIGHLIGHT * 3 + 2] = 1.0F;
-
-    ret[COL_MISTAKE * 3 + 0] = 1.0F;
-    ret[COL_MISTAKE * 3 + 1] = 0.0F;
-    ret[COL_MISTAKE * 3 + 2] = 0.0F;
-
-    ret[COL_SATISFIED * 3 + 0] = 0.0F;
-    ret[COL_SATISFIED * 3 + 1] = 0.0F;
-    ret[COL_SATISFIED * 3 + 2] = 0.0F;
-
-    /* We want the faint lines to be a bit darker than the background.
-     * Except if the background is pretty dark already; then it ought to be a
-     * bit lighter.  Oy vey.
-     */
-    ret[COL_FAINT * 3 + 0] = ret[COL_BACKGROUND * 3 + 0] * 0.9F;
-    ret[COL_FAINT * 3 + 1] = ret[COL_BACKGROUND * 3 + 1] * 0.9F;
-    ret[COL_FAINT * 3 + 2] = ret[COL_BACKGROUND * 3 + 2] * 0.9F;
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_error_colour(ret, COL_MISTAKE);
+    theme_state_empty_colour(ret, COL_HIGHLIGHT);
+    theme_state_yes_colour(ret, COL_FOREGROUND);
+    theme_state_yes_colour(ret, COL_SATISFIED);
+    theme_state_no_colour(ret, COL_FAINT);
+    theme_state_empty_colour(ret, COL_LINEUNKNOWN);
 
     *ncolours = NCOLOURS;
     return ret;

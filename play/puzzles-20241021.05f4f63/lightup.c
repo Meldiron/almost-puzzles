@@ -2087,9 +2087,9 @@ static float *game_colours(frontend *fe, int *ncolours)
     theme_state_no_colour(ret, COL_EMPTY);
     theme_state_empty_colour(ret, COL_BLACK);
 
-    ret[COL_LIT * 3 + 0] = 0.9921568627450981F;
-    ret[COL_LIT * 3 + 1] = 0.8784313725490196F;
-    ret[COL_LIT * 3 + 2] = 0.2784313725490196F;
+    ret[COL_LIT * 3 + 0] = 0.9176470588235294F;
+    ret[COL_LIT * 3 + 1] = 0.7019607843137254F;
+    ret[COL_LIT * 3 + 2] = 0.03137254901960784F;
 
     *ncolours = NCOLOURS;
     return ret;

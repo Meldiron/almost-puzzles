@@ -1062,23 +1062,12 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
     float *ret = snewn(3 * NCOLOURS, float);
 
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
-
-    ret[COL_WRONG * 3 + 0] = ret[COL_BACKGROUND * 3 + 0] / 3;
-    ret[COL_WRONG * 3 + 1] = ret[COL_BACKGROUND * 3 + 1] / 3;
-    ret[COL_WRONG * 3 + 2] = ret[COL_BACKGROUND * 3 + 2] / 3;
-
-    ret[COL_RIGHT * 3 + 0] = 1.0F;
-    ret[COL_RIGHT * 3 + 1] = 1.0F;
-    ret[COL_RIGHT * 3 + 2] = 1.0F;
-
-    ret[COL_GRID * 3 + 0] = ret[COL_BACKGROUND * 3 + 0] / 1.5F;
-    ret[COL_GRID * 3 + 1] = ret[COL_BACKGROUND * 3 + 1] / 1.5F;
-    ret[COL_GRID * 3 + 2] = ret[COL_BACKGROUND * 3 + 2] / 1.5F;
-
-    ret[COL_DIAG * 3 + 0] = ret[COL_GRID * 3 + 0];
-    ret[COL_DIAG * 3 + 1] = ret[COL_GRID * 3 + 1];
-    ret[COL_DIAG * 3 + 2] = ret[COL_GRID * 3 + 2];
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_state_no_colour(ret, COL_WRONG);
+    theme_state_yes_colour(ret, COL_RIGHT);
+    theme_grid_colour(ret, COL_GRID);
+    theme_grid_colour(ret, COL_DIAG);
+    theme_cursor_colour(ret, COL_CURSOR);
 
     ret[COL_HINT * 3 + 0] = 1.0F;
     ret[COL_HINT * 3 + 1] = 0.0F;

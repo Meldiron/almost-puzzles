@@ -1915,15 +1915,13 @@ static float *game_colours(frontend *fe, int *ncolours)
 {
     float *ret = snewn(3 * NCOLOURS, float);
 
-    frontend_default_colour(fe, &ret[COL_BACKGROUND * 3]);
-
-    ret[COL_GRID * 3 + 0] = 0.0F;
-    ret[COL_GRID * 3 + 1] = 0.0F;
-    ret[COL_GRID * 3 + 2] = 0.0F;
-
-    ret[COL_GRASS * 3 + 0] = 0.7F;
-    ret[COL_GRASS * 3 + 1] = 1.0F;
-    ret[COL_GRASS * 3 + 2] = 0.5F;
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_grid_colour(ret, COL_GRID);
+    theme_error_colour(ret, COL_ERROR);
+    theme_error_colour(ret, COL_ERRTRUNK);
+    theme_state_yes_colour(ret, COL_ERRTEXT);
+    theme_state_no_colour(ret, COL_GRASS);
+    theme_state_yes_colour(ret, COL_TENT);
 
     ret[COL_TREETRUNK * 3 + 0] = 0.6F;
     ret[COL_TREETRUNK * 3 + 1] = 0.4F;
@@ -1932,22 +1930,6 @@ static float *game_colours(frontend *fe, int *ncolours)
     ret[COL_TREELEAF * 3 + 0] = 0.0F;
     ret[COL_TREELEAF * 3 + 1] = 0.7F;
     ret[COL_TREELEAF * 3 + 2] = 0.0F;
-
-    ret[COL_TENT * 3 + 0] = 0.8F;
-    ret[COL_TENT * 3 + 1] = 0.7F;
-    ret[COL_TENT * 3 + 2] = 0.0F;
-
-    ret[COL_ERROR * 3 + 0] = 1.0F;
-    ret[COL_ERROR * 3 + 1] = 0.0F;
-    ret[COL_ERROR * 3 + 2] = 0.0F;
-
-    ret[COL_ERRTEXT * 3 + 0] = 1.0F;
-    ret[COL_ERRTEXT * 3 + 1] = 1.0F;
-    ret[COL_ERRTEXT * 3 + 2] = 1.0F;
-
-    ret[COL_ERRTRUNK * 3 + 0] = 0.6F;
-    ret[COL_ERRTRUNK * 3 + 1] = 0.0F;
-    ret[COL_ERRTRUNK * 3 + 2] = 0.0F;
 
     *ncolours = NCOLOURS;
     return ret;

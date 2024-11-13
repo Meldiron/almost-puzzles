@@ -387,7 +387,7 @@
 		<div
 			class="relative bg-neutral-800 border rounded-2xl w-full max-w-[600px] border-neutral-600 w-full p-2"
 		>
-			<div class="absolute top-4 right-4">
+			<div class="absolute top-3 right-3">
 				<button
 					class="rounded-xl bg-neutral-600 text-neutral-100 p-1"
 					on:click={() => closeModalGame()}

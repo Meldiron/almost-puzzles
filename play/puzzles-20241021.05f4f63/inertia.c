@@ -1782,32 +1782,21 @@ static float *game_colours(frontend *fe, int *ncolours)
     float *ret = snewn(3 * NCOLOURS, float);
     int i;
 
-    game_mkhighlight(fe, ret, COL_BACKGROUND, COL_HIGHLIGHT, COL_LOWLIGHT);
+    theme_background_colour(ret, COL_BACKGROUND);
+    theme_state_yes_colour(ret, COL_OUTLINE);
+    theme_error_colour(ret, COL_DEAD_PLAYER);
+    theme_state_no_colour(ret, COL_MINE);
+    theme_state_empty_colour(ret, COL_WALL);
+    theme_state_empty_colour(ret, COL_HIGHLIGHT);
+    theme_state_empty_colour(ret, COL_LOWLIGHT);
 
-    ret[COL_OUTLINE * 3 + 0] = 0.0F;
-    ret[COL_OUTLINE * 3 + 1] = 0.0F;
-    ret[COL_OUTLINE * 3 + 2] = 0.0F;
+    ret[COL_PLAYER * 3 + 0] = 0.13333333333333333F;
+    ret[COL_PLAYER * 3 + 1] = 0.7725490196078432F;
+    ret[COL_PLAYER * 3 + 2] = 0.3686274509803922F;
 
-    ret[COL_PLAYER * 3 + 0] = 0.0F;
-    ret[COL_PLAYER * 3 + 1] = 1.0F;
-    ret[COL_PLAYER * 3 + 2] = 0.0F;
-
-    ret[COL_DEAD_PLAYER * 3 + 0] = 1.0F;
-    ret[COL_DEAD_PLAYER * 3 + 1] = 0.0F;
-    ret[COL_DEAD_PLAYER * 3 + 2] = 0.0F;
-
-    ret[COL_MINE * 3 + 0] = 0.0F;
-    ret[COL_MINE * 3 + 1] = 0.0F;
-    ret[COL_MINE * 3 + 2] = 0.0F;
-
-    ret[COL_GEM * 3 + 0] = 0.6F;
-    ret[COL_GEM * 3 + 1] = 1.0F;
-    ret[COL_GEM * 3 + 2] = 1.0F;
-
-    for (i = 0; i < 3; i++) {
-	ret[COL_WALL * 3 + i] = (3 * ret[COL_BACKGROUND * 3 + i] +
-				 1 * ret[COL_HIGHLIGHT * 3 + i]) / 4;
-    }
+    ret[COL_GEM * 3 + 0] = 0.13333333333333333F;
+    ret[COL_GEM * 3 + 1] = 0.8274509803921568F;
+    ret[COL_GEM * 3 + 2] = 0.9333333333333333F;
 
     ret[COL_HINT * 3 + 0] = 1.0F;
     ret[COL_HINT * 3 + 1] = 1.0F;
@@ -1947,10 +1936,10 @@ static void draw_tile(drawing *dr, game_drawstate *ds, int x, int y, int v)
 	int cy = ty + TILESIZE / 2;
 	int r = TILESIZE / 2 - 3;
 
-	draw_circle(dr, cx, cy, 5*r/6, COL_MINE, COL_MINE);
-	draw_rect(dr, cx - r/6, cy - r, 2*(r/6)+1, 2*r+1, COL_MINE);
-	draw_rect(dr, cx - r, cy - r/6, 2*r+1, 2*(r/6)+1, COL_MINE);
-	draw_rect(dr, cx-r/3, cy-r/3, r/3, r/4, COL_HIGHLIGHT);
+	draw_rect(dr, cx - r/6, cy - r, 2*(r/6)+1, 2*r+1, COL_DEAD_PLAYER);
+	draw_rect(dr, cx - r, cy - r/6, 2*r+1, 2*(r/6)+1, COL_DEAD_PLAYER);
+	draw_circle(dr, cx, cy, 5*r/6, COL_MINE, COL_DEAD_PLAYER);
+	draw_rect(dr, cx-r/3, cy-r/3, r/3, r/4, COL_DEAD_PLAYER);
     } else if (v == STOP) {
 	draw_circle(dr, tx + TILESIZE/2, ty + TILESIZE/2,
 		    TILESIZE*3/7, -1, COL_OUTLINE);
